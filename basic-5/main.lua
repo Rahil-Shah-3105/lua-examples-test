@@ -12,6 +12,8 @@ function love.load()
         imagePath = '/assets/entity.png'
     })
 
+	print(">>> Entering load()")
+	print("load(): hero → " .. tostring(hero) .. "")
     enemy = Opponent({
         width = 64,
         height = 108,
@@ -20,11 +22,16 @@ function love.load()
         imagePath = '/assets/opponent.png'
     })
 
+	print("load(): width → " .. tostring(width) .. "")
+	print("load(): height → " .. tostring(height) .. "")
+	print("load(): imagePath → " .. tostring(imagePath) .. "")
+	print("load(): enemy → " .. tostring(enemy) .. "")
     weapon = Projectiles()
     weapon2 = Projectiles2()
 end
 
 function love.update(dt)
+	print(">>> Entering update(dt=" .. tostring(dt) .. ")")
     hero:update(dt)
     enemy:update(dt, hero)
 
@@ -39,6 +46,8 @@ function love.update(dt)
                 height = 2 
             })
         end
+			print("update(dt=" .. tostring(dt) .. "): width → " .. tostring(width) .. "")
+			print("update(dt=" .. tostring(dt) .. "): height → " .. tostring(height) .. "")
     end
 
     if (weapon2.canShoot) then
@@ -47,11 +56,14 @@ function love.update(dt)
 
     weapon:update(dt)
     weapon2:update(dt)
+	print("<<< Exiting update(dt=" .. tostring(dt) .. ")")
 end
 
 function love.draw()
+	print(">>> Entering draw()")
     hero:draw()
     enemy:draw()
     weapon:draw()
     weapon2:draw()
+	print("<<< Exiting draw()")
 end

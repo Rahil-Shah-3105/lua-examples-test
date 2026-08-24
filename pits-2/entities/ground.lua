@@ -28,6 +28,7 @@ local function Ground(opts)
     wrap = true,
     zIndex = 100
   }
+print(">>> Entering Ground(opts=" .. tostring(opts) .. ")")
 end
 
 return Ground

@@ -30,6 +30,7 @@ deserunt mollit anim id est laborum.
 
 function newAnimation(image, width, height, duration)
     local animation = {}
+	print(">>> Entering newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ",duration=" .. tostring(duration) .. ")")
     animation.spriteSheet = image;
     animation.quads = {};
 
@@ -45,37 +46,51 @@ function newAnimation(image, width, height, duration)
     animation.duration = duration or 1
     animation.currentTime = 0
  
+	print("<<< Exiting newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ",duration=" .. tostring(duration) .. ")")
     return animation
 end
 
 function love.load()
+	print(">>> Entering load()")
     love.mouse.setVisible(true);
 
+	print("load(): mouse → " .. tostring(mouse) .. "")
     -- not sure what font this picks, must be some library thing.
     -- love.graphics.setFont(love.graphics.newFont(11))
     local f = love.graphics.newFont("assets/MaisonNeue-Bold.ttf")
     love.graphics.setFont(f)
 
+	print("load(): graphics → " .. tostring(graphics) .. "")
     -- loader
     cursor = love.mouse.newCursor(love.image.newImageData("assets/cursor.png"), 0, 0)
     love.mouse.setCursor( cursor )
 
+	print("load(): cursor → " .. tostring(cursor) .. "")
     -- animation
     animation = newAnimation(love.graphics.newImage("assets/anim-boogie.png"), 32, 32, 1)
     animationTwo = newAnimation(love.graphics.newImage("assets/anim-boogie.png"), 32, 32, 1)
 
+	print("load(): animation → " .. tostring(animation) .. "")
+	print("load(): animationTwo → " .. tostring(animationTwo) .. "")
     monster = love.graphics.newImage("assets/kraken.png")
     monsterTwo = love.graphics.newImage("assets/kraken.png")
     monsterThree = love.graphics.newImage("assets/kraken.png")
     monsterFour = love.graphics.newImage("assets/kraken.png")
+	print("load(): monster → " .. tostring(monster) .. "")
+	print("load(): monsterTwo → " .. tostring(monsterTwo) .. "")
+	print("load(): monsterThree → " .. tostring(monsterThree) .. "")
+	print("load(): monsterFour → " .. tostring(monsterFour) .. "")
+print("<<< Exiting load()")
 end
 
 function love.update(dt)
+	print(">>> Entering update(dt=" .. tostring(dt) .. ")")
     -- I don't see the need for a timer yet but maybe someone can explain.
     -- love.timer.sleep(0.01)
 
     -- kinda lame management here
     animation.currentTime = animation.currentTime + dt
+	print("update(dt=" .. tostring(dt) .. "): animationTwo.currentTime → " .. tostring(animationTwo.currentTime) .. "")
     animationTwo.currentTime = animationTwo.currentTime + dt
 
     if animation.currentTime >= animation.duration then
@@ -88,13 +103,16 @@ function love.update(dt)
 
     monsterTwoAngle = (monsterTwoAngle + dt) % (2 * math.pi)
     monsterTwoX, monsterTwoY = 400 + math.cos(monsterTwoAngle)*100, 300 + math.sin(monsterTwoAngle)*100
+	print("update(dt=" .. tostring(dt) .. "): monsterTwoAngle → " .. tostring(monsterTwoAngle) .. "")
 
     monsterFourAngle = monsterFourAngle + dt
+	print("update(dt=" .. tostring(dt) .. "): monsterFourAngle → " .. tostring(monsterFourAngle) .. "")
     monsterFourX, monsterFourY = 400 + math.cos(monsterFourAngle)*100, 300 + math.sin(monsterFourAngle)*100
 
 
     if love.keyboard.isDown("left") then
         monsterX = monsterX - 200 * dt * 4
+		print("update(dt=" .. tostring(dt) .. "): monsterX → " .. tostring(monsterX) .. "")
     end
 
     if love.keyboard.isDown("right") then
@@ -103,15 +121,18 @@ function love.update(dt)
 
     if love.keyboard.isDown("up") then
         monsterY = monsterY - 200 * dt * 4
+		print("update(dt=" .. tostring(dt) .. "): monsterY → " .. tostring(monsterY) .. "")
     end
 
     if love.keyboard.isDown("down") then
         monsterY = monsterY + 200 * dt * 4
     end
+	print("<<< Exiting update(dt=" .. tostring(dt) .. ")")
 end
 
 -- draws every single frame
 function love.draw()
+	print(">>> Entering draw()")
     local spriteNum = math.floor(animation.currentTime / animation.duration * #animation.quads) + 1
     love.graphics.draw(animation.spriteSheet, animation.quads[spriteNum], 24, 24 * 9, 0, 1)
 

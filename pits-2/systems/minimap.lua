@@ -13,6 +13,7 @@ local function Minimap(res)
   local system  = tiny.processingSystem({ hud = true })
   system.filter = tiny.requireAll('minimap', 'sprite')
   system.active = false
+print(">>> Entering Minimap(res=" .. tostring(res) .. ")")
 
   local function onMinimap(draw)
     graphics.push()
@@ -21,15 +22,19 @@ local function Minimap(res)
     graphics.translate(-camera.x, 0)
     draw()
     graphics.pop()
+	print(">>> Entering onMinimap(draw=" .. tostring(draw) .. ")")
+	print("<<< Exiting onMinimap(draw=" .. tostring(draw) .. ")")
   end
 
   function system:preProcess()
+	print(">>> Entering preProcess()")
     local entities = system.entities
     local xmax = mapreduce(posx, max, -huge, entities)
     local xmin = mapreduce(posx, min,  huge, entities)
     local ymax = mapreduce(posy, max, -huge, entities)
     local ymin = mapreduce(posy, min,  huge, entities)
 
+	print("<<< Exiting preProcess()")
     onMinimap(function()
       graphics.setColor(0, 0, 0, 150)
       graphics.rectangle('fill', xmin, ymin, xmax-xmin, ymax-ymin)
@@ -37,10 +42,12 @@ local function Minimap(res)
   end
 
   function system:process(e)
+	print(">>> Entering process(e=" .. tostring(e) .. ")")
     local p, s = e.pos, e.size
     local r, g, b = e.sprite.r, e.sprite.g, e.sprite.b
     local em = e.player and 3 or 1
 
+	print("<<< Exiting process(e=" .. tostring(e) .. ")")
     onMinimap(function()
       graphics.setColor(r, g, b, 150)
       graphics.rectangle('fill', p.x, p.y-em*s.h, em*s.w, em*s.h)

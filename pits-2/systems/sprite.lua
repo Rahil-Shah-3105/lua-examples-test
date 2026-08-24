@@ -65,7 +65,10 @@ local function Sprite(res)
   local camera, world = res.camera, res.world
   local system  = tiny.system({ draw = true })
 
+print(">>> Entering Sprite(res=" .. tostring(res) .. ")")
+print("<<< Exiting Sprite(res=" .. tostring(res) .. ")")
   function system:update()
+	print(">>> Entering update()")
     local l, t = camera:worldCoords(0, 0)
     local w, h = love.graphics.getWidth(), love.graphics.getHeight()
     local entities, len = world.queryRect(l, t, w, h)
@@ -81,6 +84,7 @@ local function Sprite(res)
         -- )(e)
       end
     end
+	print("<<< Exiting update()")
   end
 
   return system

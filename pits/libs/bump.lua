@@ -37,24 +37,31 @@ local abs, floor, ceil, min, max = math.abs, math.floor, math.ceil, math.min, ma
 
 local function sign(x)
   if x > 0 then return 1 end
+print(">>> Entering sign(x=" .. tostring(x) .. ")")
   if x == 0 then return 0 end
+print("<<< Exiting sign(x=" .. tostring(x) .. ")")
   return -1
 end
 
 local function nearest(x, a, b)
   if abs(a - x) < abs(b - x) then return a else return b end
+print(">>> Entering nearest(x=" .. tostring(x) .. ",a=" .. tostring(a) .. ",b=" .. tostring(b) .. ")")
 end
 
 local function assertType(desiredType, value, name)
   if type(value) ~= desiredType then
+print(">>> Entering assertType(desiredType=" .. tostring(desiredType) .. ",value=" .. tostring(value) .. ",name=" .. tostring(name) .. ")")
     error(name .. ' must be a ' .. desiredType .. ', but was ' .. tostring(value) .. '(a ' .. type(value) .. ')')
   end
+print("<<< Exiting assertType(desiredType=" .. tostring(desiredType) .. ",value=" .. tostring(value) .. ",name=" .. tostring(name) .. ")")
 end
 
 local function assertIsPositiveNumber(value, name)
   if type(value) ~= 'number' or value <= 0 then
+print(">>> Entering assertIsPositiveNumber(value=" .. tostring(value) .. ",name=" .. tostring(name) .. ")")
     error(name .. ' must be a positive integer, but was ' .. tostring(value) .. '(' .. type(value) .. ')')
   end
+print("<<< Exiting assertIsPositiveNumber(value=" .. tostring(value) .. ",name=" .. tostring(name) .. ")")
 end
 
 local function assertIsRect(x,y,w,h)
@@ -62,6 +69,8 @@ local function assertIsRect(x,y,w,h)
   assertType('number', y, 'y')
   assertIsPositiveNumber(w, 'w')
   assertIsPositiveNumber(h, 'h')
+print(">>> Entering assertIsRect(x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ")")
+print("<<< Exiting assertIsRect(x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ")")
 end
 
 local defaultFilter = function()
@@ -73,6 +82,8 @@ end
 ------------------------------------------
 
 local function rect_getNearestCorner(x,y,w,h, px, py)
+print(">>> Entering rect_getNearestCorner(x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ",px=" .. tostring(px) .. ",py=" .. tostring(py) .. ")")
+  print("<<< Exiting rect_getNearestCorner(x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ",px=" .. tostring(px) .. ",py=" .. tostring(py) .. ")")
   return nearest(px, x, x+w), nearest(py, y, y+h)
 end
 
@@ -82,6 +93,7 @@ end
 -- Notice that normals are only guaranteed to be accurate when initially ti1, ti2 == -math.huge, math.huge
 local function rect_getSegmentIntersectionIndices(x,y,w,h, x1,y1,x2,y2, ti1,ti2)
   ti1, ti2 = ti1 or 0, ti2 or 1
+print(">>> Entering rect_getSegmentIntersectionIndices(x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ",x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",ti1=" .. tostring(ti1) .. ",ti2=" .. tostring(ti2) .. ")")
   local dx, dy = x2-x1, y2-y1
   local nx, ny
   local nx1, ny1, nx2, ny2 = 0,0,0,0
@@ -110,6 +122,7 @@ local function rect_getSegmentIntersectionIndices(x,y,w,h, x1,y1,x2,y2, ti1,ti2)
     end
   end
 
+print("<<< Exiting rect_getSegmentIntersectionIndices(x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ",x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",ti1=" .. tostring(ti1) .. ",ti2=" .. tostring(ti2) .. ")")
   return ti1,ti2, nx1,ny1, nx2,ny2
 end
 
@@ -119,26 +132,34 @@ local function rect_getDiff(x1,y1,w1,h1, x2,y2,w2,h2)
          y2 - y1 - h1,
          w1 + w2,
          h1 + h2
+print(">>> Entering rect_getDiff(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",w1=" .. tostring(w1) .. ",h1=" .. tostring(h1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",w2=" .. tostring(w2) .. ",h2=" .. tostring(h2) .. ")")
 end
 
 local function rect_containsPoint(x,y,w,h, px,py)
   return px - x > DELTA      and py - y > DELTA and
+print(">>> Entering rect_containsPoint(x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ",px=" .. tostring(px) .. ",py=" .. tostring(py) .. ")")
          x + w - px > DELTA  and y + h - py > DELTA
+		print("<<< Exiting rect_containsPoint(x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ",px=" .. tostring(px) .. ",py=" .. tostring(py) .. ")")
 end
 
 local function rect_isIntersecting(x1,y1,w1,h1, x2,y2,w2,h2)
   return x1 < x2+w2 and x2 < x1+w1 and
+print(">>> Entering rect_isIntersecting(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",w1=" .. tostring(w1) .. ",h1=" .. tostring(h1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",w2=" .. tostring(w2) .. ",h2=" .. tostring(h2) .. ")")
          y1 < y2+h2 and y2 < y1+h1
+		print("<<< Exiting rect_isIntersecting(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",w1=" .. tostring(w1) .. ",h1=" .. tostring(h1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",w2=" .. tostring(w2) .. ",h2=" .. tostring(h2) .. ")")
 end
 
 local function rect_getSquareDistance(x1,y1,w1,h1, x2,y2,w2,h2)
   local dx = x1 - x2 + (w1 - w2)/2
+print(">>> Entering rect_getSquareDistance(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",w1=" .. tostring(w1) .. ",h1=" .. tostring(h1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",w2=" .. tostring(w2) .. ",h2=" .. tostring(h2) .. ")")
   local dy = y1 - y2 + (h1 - h2)/2
+print("<<< Exiting rect_getSquareDistance(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",w1=" .. tostring(w1) .. ",h1=" .. tostring(h1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",w2=" .. tostring(w2) .. ",h2=" .. tostring(h2) .. ")")
   return dx*dx + dy*dy
 end
 
 local function rect_detectCollision(x1,y1,w1,h1, x2,y2,w2,h2, goalX, goalY)
   goalX = goalX or x1
+print(">>> Entering rect_detectCollision(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",w1=" .. tostring(w1) .. ",h1=" .. tostring(h1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",w2=" .. tostring(w2) .. ",h2=" .. tostring(h2) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. ")")
   goalY = goalY or y1
 
   local dx, dy      = goalX - x1, goalY - y1
@@ -151,6 +172,7 @@ local function rect_detectCollision(x1,y1,w1,h1, x2,y2,w2,h2, goalX, goalY)
     local wi, hi    = min(w1, abs(px)), min(h1, abs(py)) -- area of intersection
     ti              = -wi * hi -- ti is the negative area of intersection
     overlaps = true
+	print("rect_detectCollision(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",w1=" .. tostring(w1) .. ",h1=" .. tostring(h1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",w2=" .. tostring(w2) .. ",h2=" .. tostring(h2) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. "): overlaps → " .. tostring(overlaps) .. "")
   else
     local ti1,ti2,nx1,ny1 = rect_getSegmentIntersectionIndices(x,y,w,h, 0,0,dx,dy, -math.huge, math.huge)
 
@@ -182,8 +204,13 @@ local function rect_detectCollision(x1,y1,w1,h1, x2,y2,w2,h2, goalX, goalY)
       local ti1, _
       ti1,_,nx,ny = rect_getSegmentIntersectionIndices(x,y,w,h, 0,0,dx,dy, -math.huge, 1)
       if not ti1 then return end
+	print("<<< Exiting rect_detectCollision(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",w1=" .. tostring(w1) .. ",h1=" .. tostring(h1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",w2=" .. tostring(w2) .. ",h2=" .. tostring(h2) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. ")")
       tx, ty = x1 + dx * ti1, y1 + dy * ti1
     end
+	print("rect_detectCollision(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",w1=" .. tostring(w1) .. ",h1=" .. tostring(h1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",w2=" .. tostring(w2) .. ",h2=" .. tostring(h2) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. "): otherRect → " .. tostring(otherRect) .. "")
+	print("rect_detectCollision(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",w1=" .. tostring(w1) .. ",h1=" .. tostring(h1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",w2=" .. tostring(w2) .. ",h2=" .. tostring(h2) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. "): itemRect → " .. tostring(itemRect) .. "")
+	print("rect_detectCollision(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",w1=" .. tostring(w1) .. ",h1=" .. tostring(h1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",w2=" .. tostring(w2) .. ",h2=" .. tostring(h2) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. "): normal → " .. tostring(normal) .. "")
+	print("rect_detectCollision(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",w1=" .. tostring(w1) .. ",h1=" .. tostring(h1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",w2=" .. tostring(w2) .. ",h2=" .. tostring(h2) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. "): move → " .. tostring(move) .. "")
   else -- tunnel
     tx, ty = x1 + dx * ti, y1 + dy * ti
   end
@@ -204,10 +231,14 @@ end
 ------------------------------------------
 
 local function grid_toWorld(cellSize, cx, cy)
+print(">>> Entering grid_toWorld(cellSize=" .. tostring(cellSize) .. ",cx=" .. tostring(cx) .. ",cy=" .. tostring(cy) .. ")")
+  print("<<< Exiting grid_toWorld(cellSize=" .. tostring(cellSize) .. ",cx=" .. tostring(cx) .. ",cy=" .. tostring(cy) .. ")")
   return (cx - 1)*cellSize, (cy-1)*cellSize
 end
 
 local function grid_toCell(cellSize, x, y)
+print(">>> Entering grid_toCell(cellSize=" .. tostring(cellSize) .. ",x=" .. tostring(x) .. ",y=" .. tostring(y) .. ")")
+  print("<<< Exiting grid_toCell(cellSize=" .. tostring(cellSize) .. ",x=" .. tostring(x) .. ",y=" .. tostring(y) .. ")")
   return floor(x / cellSize) + 1, floor(y / cellSize) + 1
 end
 
@@ -218,6 +249,7 @@ end
 
 local function grid_traverse_initStep(cellSize, ct, t1, t2)
   local v = t2 - t1
+print(">>> Entering grid_traverse_initStep(cellSize=" .. tostring(cellSize) .. ",ct=" .. tostring(ct) .. ",t1=" .. tostring(t1) .. ",t2=" .. tostring(t2) .. ")")
   if     v > 0 then
     return  1,  cellSize / v, ((ct + v) * cellSize - t1) / v
   elseif v < 0 then
@@ -225,6 +257,7 @@ local function grid_traverse_initStep(cellSize, ct, t1, t2)
   else
     return 0, math.huge, math.huge
   end
+print("<<< Exiting grid_traverse_initStep(cellSize=" .. tostring(cellSize) .. ",ct=" .. tostring(ct) .. ",t1=" .. tostring(t1) .. ",t2=" .. tostring(t2) .. ")")
 end
 
 local function grid_traverse(cellSize, x1,y1,x2,y2, f)
@@ -233,6 +266,7 @@ local function grid_traverse(cellSize, x1,y1,x2,y2, f)
   local stepX, dx, tx  = grid_traverse_initStep(cellSize, cx1, x1, x2)
   local stepY, dy, ty  = grid_traverse_initStep(cellSize, cy1, y1, y2)
   local cx,cy          = cx1,cy1
+print(">>> Entering grid_traverse(cellSize=" .. tostring(cellSize) .. ",x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",f=" .. tostring(f) .. ")")
 
   f(cx, cy)
 
@@ -252,6 +286,7 @@ local function grid_traverse(cellSize, x1,y1,x2,y2, f)
   end
 
   -- If we have not arrived to the last cell, use it
+print("<<< Exiting grid_traverse(cellSize=" .. tostring(cellSize) .. ",x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",f=" .. tostring(f) .. ")")
   if cx ~= cx2 or cy ~= cy2 then f(cx2, cy2) end
 
 end
@@ -260,6 +295,8 @@ local function grid_toCellRect(cellSize, x,y,w,h)
   local cx,cy = grid_toCell(cellSize, x, y)
   local cr,cb = ceil((x+w) / cellSize), ceil((y+h) / cellSize)
   return cx, cy, cr - cx + 1, cb - cy + 1
+print(">>> Entering grid_toCellRect(cellSize=" .. tostring(cellSize) .. ",x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ")")
+print("<<< Exiting grid_toCellRect(cellSize=" .. tostring(cellSize) .. ",x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ")")
 end
 
 ------------------------------------------
@@ -333,41 +370,50 @@ local function sortByWeight(a,b) return a.weight < b.weight end
 
 local function sortByTiAndDistance(a,b)
   if a.ti == b.ti then
+print(">>> Entering sortByTiAndDistance(a=" .. tostring(a) .. ",b=" .. tostring(b) .. ")")
     local ir, ar, br = a.itemRect, a.otherRect, b.otherRect
     local ad = rect_getSquareDistance(ir.x,ir.y,ir.w,ir.h, ar.x,ar.y,ar.w,ar.h)
     local bd = rect_getSquareDistance(ir.x,ir.y,ir.w,ir.h, br.x,br.y,br.w,br.h)
     return ad < bd
   end
+print("<<< Exiting sortByTiAndDistance(a=" .. tostring(a) .. ",b=" .. tostring(b) .. ")")
   return a.ti < b.ti
 end
 
 local function addItemToCell(self, item, cx, cy)
   self.rows[cy] = self.rows[cy] or setmetatable({}, {__mode = 'v'})
   local row = self.rows[cy]
+print(">>> Entering addItemToCell(self=" .. tostring(self) .. ",item=" .. tostring(item) .. ",cx=" .. tostring(cx) .. ",cy=" .. tostring(cy) .. ")")
   row[cx] = row[cx] or {itemCount = 0, x = cx, y = cy, items = setmetatable({}, {__mode = 'k'})}
   local cell = row[cx]
   self.nonEmptyCells[cell] = true
   if not cell.items[item] then
     cell.items[item] = true
     cell.itemCount = cell.itemCount + 1
+	print("addItemToCell(self=" .. tostring(self) .. ",item=" .. tostring(item) .. ",cx=" .. tostring(cx) .. ",cy=" .. tostring(cy) .. "): cell.itemCount → " .. tostring(cell.itemCount) .. "")
   end
+print("<<< Exiting addItemToCell(self=" .. tostring(self) .. ",item=" .. tostring(item) .. ",cx=" .. tostring(cx) .. ",cy=" .. tostring(cy) .. ")")
 end
 
 local function removeItemFromCell(self, item, cx, cy)
   local row = self.rows[cy]
+print(">>> Entering removeItemFromCell(self=" .. tostring(self) .. ",item=" .. tostring(item) .. ",cx=" .. tostring(cx) .. ",cy=" .. tostring(cy) .. ")")
   if not row or not row[cx] or not row[cx].items[item] then return false end
 
   local cell = row[cx]
   cell.items[item] = nil
   cell.itemCount = cell.itemCount - 1
+print("removeItemFromCell(self=" .. tostring(self) .. ",item=" .. tostring(item) .. ",cx=" .. tostring(cx) .. ",cy=" .. tostring(cy) .. "): cell.itemCount → " .. tostring(cell.itemCount) .. "")
   if cell.itemCount == 0 then
     self.nonEmptyCells[cell] = nil
   end
+print("<<< Exiting removeItemFromCell(self=" .. tostring(self) .. ",item=" .. tostring(item) .. ",cx=" .. tostring(cx) .. ",cy=" .. tostring(cy) .. ")")
   return true
 end
 
 local function getDictItemsInCellRect(self, cl,ct,cw,ch)
   local items_dict = {}
+print(">>> Entering getDictItemsInCellRect(self=" .. tostring(self) .. ",cl=" .. tostring(cl) .. ",ct=" .. tostring(ct) .. ",cw=" .. tostring(cw) .. ",ch=" .. tostring(ch) .. ")")
   for cy=ct,ct+ch-1 do
     local row = self.rows[cy]
     if row then
@@ -382,13 +428,16 @@ local function getDictItemsInCellRect(self, cl,ct,cw,ch)
     end
   end
 
+print("<<< Exiting getDictItemsInCellRect(self=" .. tostring(self) .. ",cl=" .. tostring(cl) .. ",ct=" .. tostring(ct) .. ",cw=" .. tostring(cw) .. ",ch=" .. tostring(ch) .. ")")
   return items_dict
 end
 
 local function getCellsTouchedBySegment(self, x1,y1,x2,y2)
 
   local cells, cellsLen, visited = {}, 0, {}
+print(">>> Entering getCellsTouchedBySegment(self=" .. tostring(self) .. ",x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ")")
 
+print("<<< Exiting getCellsTouchedBySegment(self=" .. tostring(self) .. ",x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ")")
   grid_traverse(self.cellSize, x1,y1,x2,y2, function(cx, cy)
     local row  = self.rows[cy]
     if not row then return end
@@ -407,8 +456,10 @@ local function getInfoAboutItemsTouchedBySegment(self, x1,y1, x2,y2, filter)
   local cells, len = getCellsTouchedBySegment(self, x1,y1,x2,y2)
   local cell, rect, l,t,w,h, ti1,ti2, tii0,tii1
   local visited, itemInfo, itemInfoLen = {},{},0
+print(">>> Entering getInfoAboutItemsTouchedBySegment(self=" .. tostring(self) .. ",x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",filter=" .. tostring(filter) .. ")")
   for i=1,len do
     cell = cells[i]
+	print("getInfoAboutItemsTouchedBySegment(self=" .. tostring(self) .. ",x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",filter=" .. tostring(filter) .. "): cell → " .. tostring(cell) .. "")
     for item in pairs(cell.items) do
       if not visited[item] then
         visited[item]  = true
@@ -421,6 +472,7 @@ local function getInfoAboutItemsTouchedBySegment(self, x1,y1, x2,y2, filter)
             -- the sorting is according to the t of an infinite line, not the segment
             tii0,tii1    = rect_getSegmentIntersectionIndices(l,t,w,h, x1,y1, x2,y2, -math.huge, math.huge)
             itemInfoLen  = itemInfoLen + 1
+			print("getInfoAboutItemsTouchedBySegment(self=" .. tostring(self) .. ",x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",filter=" .. tostring(filter) .. "): itemInfoLen → " .. tostring(itemInfoLen) .. "")
             itemInfo[itemInfoLen] = {item = item, ti1 = ti1, ti2 = ti2, weight = min(tii0,tii1)}
           end
         end
@@ -428,14 +480,17 @@ local function getInfoAboutItemsTouchedBySegment(self, x1,y1, x2,y2, filter)
     end
   end
   table.sort(itemInfo, sortByWeight)
+print("<<< Exiting getInfoAboutItemsTouchedBySegment(self=" .. tostring(self) .. ",x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",filter=" .. tostring(filter) .. ")")
   return itemInfo, itemInfoLen
 end
 
 local function getResponseByName(self, name)
   local response = self.responses[name]
+print(">>> Entering getResponseByName(self=" .. tostring(self) .. ",name=" .. tostring(name) .. ")")
   if not response then
     error(('Unknown collision type: %s (%s)'):format(name, type(name)))
   end
+print("<<< Exiting getResponseByName(self=" .. tostring(self) .. ",name=" .. tostring(name) .. ")")
   return response
 end
 
@@ -443,10 +498,13 @@ end
 -- Misc Public Methods
 
 function World:addResponse(name, response)
+print(">>> Entering addResponse(name=" .. tostring(name) .. ",response=" .. tostring(response) .. ")")
   self.responses[name] = response
+print("<<< Exiting addResponse(name=" .. tostring(name) .. ",response=" .. tostring(response) .. ")")
 end
 
 function World:project(item, x,y,w,h, goalX, goalY, filter)
+print(">>> Entering project(item=" .. tostring(item) .. ",x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. ",filter=" .. tostring(filter) .. ")")
   assertIsRect(x,y,w,h)
 
   goalX = goalX or x
@@ -479,10 +537,14 @@ function World:project(item, x,y,w,h, goalX, goalY, filter)
 
         if col then
           col.other    = other
+		print("project(item=" .. tostring(item) .. ",x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. ",filter=" .. tostring(filter) .. "): col.other → " .. tostring(col.other) .. "")
+		print("project(item=" .. tostring(item) .. ",x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. ",filter=" .. tostring(filter) .. "): col.item → " .. tostring(col.item) .. "")
+		print("project(item=" .. tostring(item) .. ",x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. ",filter=" .. tostring(filter) .. "): col.type → " .. tostring(col.type) .. "")
           col.item     = item
           col.type     = responseName
 
           len = len + 1
+		print("project(item=" .. tostring(item) .. ",x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. ",filter=" .. tostring(filter) .. "): len → " .. tostring(len) .. "")
           collisions[len] = col
         end
       end
@@ -491,51 +553,67 @@ function World:project(item, x,y,w,h, goalX, goalY, filter)
 
   table.sort(collisions, sortByTiAndDistance)
 
+print("<<< Exiting project(item=" .. tostring(item) .. ",x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. ",filter=" .. tostring(filter) .. ")")
   return collisions, len
 end
 
 function World:countCells()
+print(">>> Entering countCells()")
   local count = 0
   for _,row in pairs(self.rows) do
     for _,_ in pairs(row) do
       count = count + 1
     end
   end
+print("<<< Exiting countCells()")
   return count
 end
 
 function World:hasItem(item)
+print(">>> Entering hasItem(item=" .. tostring(item) .. ")")
+  print("<<< Exiting hasItem(item=" .. tostring(item) .. ")")
   return not not self.rects[item]
 end
 
 function World:getItems()
   local items, len = {}, 0
+print(">>> Entering getItems()")
   for item,_ in pairs(self.rects) do
     len = len + 1
+	print("getItems(): len → " .. tostring(len) .. "")
     items[len] = item
   end
+print("<<< Exiting getItems()")
   return items, len
 end
 
 function World:countItems()
+print(">>> Entering countItems()")
   local len = 0
   for _ in pairs(self.rects) do len = len + 1 end
+print("<<< Exiting countItems()")
   return len
 end
 
 function World:getRect(item)
+print(">>> Entering getRect(item=" .. tostring(item) .. ")")
   local rect = self.rects[item]
   if not rect then
     error('Item ' .. tostring(item) .. ' must be added to the world before getting its rect. Use world:add(item, x,y,w,h) to add it first.')
   end
+print("<<< Exiting getRect(item=" .. tostring(item) .. ")")
   return rect.x, rect.y, rect.w, rect.h
 end
 
 function World:toWorld(cx, cy)
+print(">>> Entering toWorld(cx=" .. tostring(cx) .. ",cy=" .. tostring(cy) .. ")")
+  print("<<< Exiting toWorld(cx=" .. tostring(cx) .. ",cy=" .. tostring(cy) .. ")")
   return grid_toWorld(self.cellSize, cx, cy)
 end
 
 function World:toCell(x,y)
+print(">>> Entering toCell(x=" .. tostring(x) .. ",y=" .. tostring(y) .. ")")
+  print("<<< Exiting toCell(x=" .. tostring(x) .. ",y=" .. tostring(y) .. ")")
   return grid_toCell(self.cellSize, x, y)
 end
 
@@ -543,6 +621,7 @@ end
 --- Query methods
 
 function World:queryRect(x,y,w,h, filter)
+print(">>> Entering queryRect(x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ",filter=" .. tostring(filter) .. ")")
 
   assertIsRect(x,y,w,h)
 
@@ -554,14 +633,17 @@ function World:queryRect(x,y,w,h, filter)
   local rect
   for item,_ in pairs(dictItemsInCellRect) do
     rect = self.rects[item]
+	print("queryRect(x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ",filter=" .. tostring(filter) .. "): rect → " .. tostring(rect) .. "")
     if (not filter or filter(item))
     and rect_isIntersecting(x,y,w,h, rect.x, rect.y, rect.w, rect.h)
     then
       len = len + 1
+	print("queryRect(x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ",filter=" .. tostring(filter) .. "): len → " .. tostring(len) .. "")
       items[len] = item
     end
   end
 
+print("<<< Exiting queryRect(x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ",filter=" .. tostring(filter) .. ")")
   return items, len
 end
 
@@ -570,45 +652,61 @@ function World:queryPoint(x,y, filter)
   local dictItemsInCellRect = getDictItemsInCellRect(self, cx,cy,1,1)
 
   local items, len = {}, 0
+print(">>> Entering queryPoint(x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",filter=" .. tostring(filter) .. ")")
 
   local rect
   for item,_ in pairs(dictItemsInCellRect) do
     rect = self.rects[item]
+	print("queryPoint(x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",filter=" .. tostring(filter) .. "): rect → " .. tostring(rect) .. "")
     if (not filter or filter(item))
     and rect_containsPoint(rect.x, rect.y, rect.w, rect.h, x, y)
     then
       len = len + 1
+	print("queryPoint(x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",filter=" .. tostring(filter) .. "): len → " .. tostring(len) .. "")
       items[len] = item
     end
   end
 
+print("<<< Exiting queryPoint(x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",filter=" .. tostring(filter) .. ")")
   return items, len
 end
 
 function World:querySegment(x1, y1, x2, y2, filter)
   local itemInfo, len = getInfoAboutItemsTouchedBySegment(self, x1, y1, x2, y2, filter)
   local items = {}
+print(">>> Entering querySegment(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",filter=" .. tostring(filter) .. ")")
   for i=1, len do
     items[i] = itemInfo[i].item
   end
+print("<<< Exiting querySegment(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",filter=" .. tostring(filter) .. ")")
   return items, len
 end
 
 function World:querySegmentWithCoords(x1, y1, x2, y2, filter)
+print(">>> Entering querySegmentWithCoords(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",filter=" .. tostring(filter) .. ")")
   local itemInfo, len = getInfoAboutItemsTouchedBySegment(self, x1, y1, x2, y2, filter)
   local dx, dy        = x2-x1, y2-y1
   local info, ti1, ti2
   for i=1, len do
     info  = itemInfo[i]
+	print("querySegmentWithCoords(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",filter=" .. tostring(filter) .. "): info → " .. tostring(info) .. "")
+	print("querySegmentWithCoords(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",filter=" .. tostring(filter) .. "): ti1 → " .. tostring(ti1) .. "")
+	print("querySegmentWithCoords(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",filter=" .. tostring(filter) .. "): ti2 → " .. tostring(ti2) .. "")
     ti1   = info.ti1
     ti2   = info.ti2
 
     info.weight  = nil
+	print("querySegmentWithCoords(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",filter=" .. tostring(filter) .. "): info.weight → " .. tostring(info.weight) .. "")
+	print("querySegmentWithCoords(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",filter=" .. tostring(filter) .. "): info.x1 → " .. tostring(info.x1) .. "")
+	print("querySegmentWithCoords(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",filter=" .. tostring(filter) .. "): info.y1 → " .. tostring(info.y1) .. "")
+	print("querySegmentWithCoords(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",filter=" .. tostring(filter) .. "): info.x2 → " .. tostring(info.x2) .. "")
+	print("querySegmentWithCoords(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",filter=" .. tostring(filter) .. "): info.y2 → " .. tostring(info.y2) .. "")
     info.x1      = x1 + dx * ti1
     info.y1      = y1 + dy * ti1
     info.x2      = x1 + dx * ti2
     info.y2      = y1 + dy * ti2
   end
+print("<<< Exiting querySegmentWithCoords(x1=" .. tostring(x1) .. ",y1=" .. tostring(y1) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",filter=" .. tostring(filter) .. ")")
   return itemInfo, len
 end
 
@@ -616,6 +714,7 @@ end
 --- Main methods
 
 function World:add(item, x,y,w,h)
+print(">>> Entering add(item=" .. tostring(item) .. ",x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ")")
   local rect = self.rects[item]
   if rect then
     error('Item ' .. tostring(item) .. ' added to the world twice.')
@@ -631,10 +730,12 @@ function World:add(item, x,y,w,h)
     end
   end
 
+print("<<< Exiting add(item=" .. tostring(item) .. ",x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ")")
   return item
 end
 
 function World:remove(item)
+print(">>> Entering remove(item=" .. tostring(item) .. ")")
   local x,y,w,h = self:getRect(item)
 
   self.rects[item] = nil
@@ -644,9 +745,11 @@ function World:remove(item)
       removeItemFromCell(self, item, cx, cy)
     end
   end
+print("<<< Exiting remove(item=" .. tostring(item) .. ")")
 end
 
 function World:update(item, x2,y2,w2,h2)
+print(">>> Entering update(item=" .. tostring(item) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",w2=" .. tostring(w2) .. ",h2=" .. tostring(h2) .. ")")
   local x1,y1,w1,h1 = self:getRect(item)
   w2,h2 = w2 or w1, h2 or h1
   assertIsRect(x2,y2,w2,h2)
@@ -665,6 +768,7 @@ function World:update(item, x2,y2,w2,h2)
 
       for cy = ct1, cb1 do
         cyOut = cy < ct2 or cy > cb2
+		print("update(item=" .. tostring(item) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",w2=" .. tostring(w2) .. ",h2=" .. tostring(h2) .. "): cyOut → " .. tostring(cyOut) .. "")
         for cx = cl1, cr1 do
           if cyOut or cx < cl2 or cx > cr2 then
             removeItemFromCell(self, item, cx, cy)
@@ -687,13 +791,16 @@ function World:update(item, x2,y2,w2,h2)
     rect.x, rect.y, rect.w, rect.h = x2,y2,w2,h2
 
   end
+print("<<< Exiting update(item=" .. tostring(item) .. ",x2=" .. tostring(x2) .. ",y2=" .. tostring(y2) .. ",w2=" .. tostring(w2) .. ",h2=" .. tostring(h2) .. ")")
 end
 
 function World:move(item, goalX, goalY, filter)
+print(">>> Entering move(item=" .. tostring(item) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. ",filter=" .. tostring(filter) .. ")")
   local actualX, actualY, cols, len = self:check(item, goalX, goalY, filter)
 
   self:update(item, actualX, actualY)
 
+print("<<< Exiting move(item=" .. tostring(item) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. ",filter=" .. tostring(filter) .. ")")
   return actualX, actualY, cols, len
 end
 
@@ -701,6 +808,7 @@ function World:check(item, goalX, goalY, filter)
   filter = filter or defaultFilter
 
   local visited = {[item] = true}
+print(">>> Entering check(item=" .. tostring(item) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. ",filter=" .. tostring(filter) .. ")")
   local visitedFilter = function(itm, other)
     if visited[other] then return false end
     return filter(itm, other)
@@ -715,6 +823,7 @@ function World:check(item, goalX, goalY, filter)
   while projected_len > 0 do
     local col = projected_cols[1]
     len       = len + 1
+	print("check(item=" .. tostring(item) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. ",filter=" .. tostring(filter) .. "): len → " .. tostring(len) .. "")
     cols[len] = col
 
     visited[col.other] = true
@@ -730,6 +839,7 @@ function World:check(item, goalX, goalY, filter)
     )
   end
 
+print("<<< Exiting check(item=" .. tostring(item) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. ",filter=" .. tostring(filter) .. ")")
   return goalX, goalY, cols, len
 end
 
