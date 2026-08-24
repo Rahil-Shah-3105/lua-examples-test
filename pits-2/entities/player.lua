@@ -77,6 +77,7 @@ local function Player(opts)
     wrap = true,
     zIndex = 1000
   }
+print(">>> Entering Player(opts=" .. tostring(opts) .. ")")
 end
 
 return Player

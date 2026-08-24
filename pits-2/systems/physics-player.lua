@@ -8,8 +8,10 @@ local function PlayerPhysics()
   local system  = tiny.processingSystem({ update = true })
   system.filter = tiny.requireAll('player')
   system.active = true
+print(">>> Entering PlayerPhysics()")
 
   function system:process(e)
+	print(">>> Entering process(e=" .. tostring(e) .. ")")
     local controls = e.controls.states
     local motion, pad, pos, size, state = e.motion, e.pad, e.pos, e.size, e.state
     local fall = true
@@ -28,6 +30,8 @@ local function PlayerPhysics()
 
           if state:is('running') or motion.vy > 0 and bottom >= y then
             pos.y = y - size.h + pad.b
+			print("process(e=" .. tostring(e) .. "): pos.y → " .. tostring(pos.y) .. "")
+			print("process(e=" .. tostring(e) .. "): motion.vy → " .. tostring(motion.vy) .. "")
             motion.vy = 0
             state:land()
             fall = false
@@ -43,6 +47,7 @@ local function PlayerPhysics()
     end
 
     if fall then state:fall() end
+	print("<<< Exiting process(e=" .. tostring(e) .. ")")
   end
 
   return system

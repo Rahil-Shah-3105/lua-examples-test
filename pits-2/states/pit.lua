@@ -11,10 +11,12 @@ local tile = config.tile
 local function Pit()
   local world = World()
 
+print(">>> Entering Pit()")
   function world.entities()
     local ys = floor()
     local player = Player({ x = -tile.w, y = -tile.h })
 
+	print(">>> Entering entities()")
     local ents = flatten({
       grounds(ys),
       { player }
@@ -24,6 +26,7 @@ local function Pit()
     return ents
   end
 
+print("<<< Exiting Pit()")
   return world
 end
 
