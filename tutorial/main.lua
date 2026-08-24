@@ -1,4 +1,5 @@
 function newAnimation(image, width, height)
+print(">>> Entering newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ")")
   -- Lua as a programming language supports local variables.
   -- Unlike global variables, local variables have 
   -- their scope limited to the block they are declared.
@@ -9,6 +10,8 @@ function newAnimation(image, width, height)
   -- A table in Lua is an object in more than one sense.
   -- We can store state in this object.
   animation.spriteSheet = image;
+print("newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. "): animation.spriteSheet → " .. tostring(animation.spriteSheet) .. "")
+print("newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. "): animation.quads → " .. tostring(animation.quads) .. "")
   animation.quads = {};
   local y = 0
   local x = 0
@@ -32,8 +35,11 @@ function newAnimation(image, width, height)
   -- These are some values that represent how long 
   -- we should spend in each frame of the sprite sheet animation.
   animation.duration = 1
+print("newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. "): animation.duration → " .. tostring(animation.duration) .. "")
+print("newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. "): animation.current → " .. tostring(animation.current) .. "")
   animation.current = 0
  
+print("<<< Exiting newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ")")
   return animation
 end
 
@@ -44,6 +50,7 @@ local mounted = {}
 -- This function is called exactly once at 
 -- the beginning of the game.
 function love.load()
+print(">>> Entering load()")
   -- You can use any values you like here.
   -- I am going to initialize 20 explosions 
   -- by inserting 20 local variables
@@ -57,11 +64,13 @@ function love.load()
    )
    table.insert(mounted, explosion)
   end
+print("<<< Exiting load()")
 end
 
 -- Callback function used to update the 
 -- state of the game every frame.
 function love.update(dt)
+print(">>> Entering update(dt=" .. tostring(dt) .. ")")
   -- Iterate over each of the explosions in the table.
   for i, v in pairs(mounted) do
     -- For each explosion, 
@@ -73,10 +82,12 @@ function love.update(dt)
       mounted[i].current = 0
     end
   end
+print("<<< Exiting update(dt=" .. tostring(dt) .. ")")
 end
 
 -- Callback function used to draw on the screen every frame.
 function love.draw()
+print(">>> Entering draw()")
   -- Iterate over each of the explosions in the table.
   for i, v in pairs(mounted) do
     -- This is just to make it easier to reference the explosion.
@@ -95,4 +106,5 @@ function love.draw()
       math.random(0, height)
     )
   end
+print("<<< Exiting draw()")
 end

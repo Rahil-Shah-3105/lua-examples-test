@@ -5,8 +5,11 @@ local BULLET_SPEED = 200
 
 function newAnimation(image, width, height, duration)
     local animation = {}
+	print(">>> Entering newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ",duration=" .. tostring(duration) .. ")")
     animation.spriteSheet = image;
     animation.quads = {};
+	print("newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ",duration=" .. tostring(duration) .. "): animation.quads → " .. tostring(animation.quads) .. "")
+	print("newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ",duration=" .. tostring(duration) .. "): animation.spriteSheet → " .. tostring(animation.spriteSheet) .. "")
 
     local y = 0
     local x = 0
@@ -18,26 +21,37 @@ function newAnimation(image, width, height, duration)
     end
  
     animation.duration = duration or 1
+	print("newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ",duration=" .. tostring(duration) .. "): animation.duration → " .. tostring(animation.duration) .. "")
+	print("newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ",duration=" .. tostring(duration) .. "): animation.current → " .. tostring(animation.current) .. "")
     animation.current = 0
  
+	print("<<< Exiting newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ",duration=" .. tostring(duration) .. ")")
     return animation
 end
 
 function copy1(obj)
     if type(obj) ~= 'table' then return obj end
     local res = {}
+	print(">>> Entering copy1(obj=" .. tostring(obj) .. ")")
     for k, v in pairs(obj) do res[copy1(k)] = copy1(v) end
+	print("<<< Exiting copy1(obj=" .. tostring(obj) .. ")")
     return res
 end
 
 function Projectiles2:new()
     self.mounted = {}
+	print(">>> Entering new()")
     self.animation = newAnimation(love.graphics.newImage("assets/weapon2.png"), 116.5, 115.5, 1)
     self.cooldown = { max = 1.7, elapsed = 0 }
+	print("new(): self.cooldown → " .. tostring(self.cooldown) .. "")
+	print("new(): self.canShoot → " .. tostring(self.canShoot) .. "")
+print("new(): self.mounted → " .. tostring(self.mounted) .. "")
+print("<<< Exiting new()")
     self.canShoot = true
 end
 
 function Projectiles2:shoot(sourceEntity, targetEntity)
+	print(">>> Entering shoot(sourceEntity=" .. tostring(sourceEntity) .. ",targetEntity=" .. tostring(targetEntity) .. ")")
     local target = copy1(targetEntity)
     local source = copy1(sourceEntity)
 
@@ -57,15 +71,19 @@ function Projectiles2:shoot(sourceEntity, targetEntity)
 
     table.insert(self.mounted, projectileProperties)
     self.canShoot = false
+	print("shoot(sourceEntity=" .. tostring(sourceEntity) .. ",targetEntity=" .. tostring(targetEntity) .. "): self.canShoot → " .. tostring(self.canShoot) .. "")
+print("<<< Exiting shoot(sourceEntity=" .. tostring(sourceEntity) .. ",targetEntity=" .. tostring(targetEntity) .. ")")
 end
 
 function Projectiles2:update(dt, target)
+	print(">>> Entering update(dt=" .. tostring(dt) .. ",target=" .. tostring(target) .. ")")
     if not self.canShoot then
         self.cooldown.elapsed = self.cooldown.elapsed + dt
 
         if self.cooldown.elapsed >= self.cooldown.max then
             self.cooldown.elapsed = self.cooldown.elapsed - self.cooldown.max
             self.canShoot = true
+			print("update(dt=" .. tostring(dt) .. ",target=" .. tostring(target) .. "): self.canShoot → " .. tostring(self.canShoot) .. "")
         end
     end
 
@@ -88,9 +106,11 @@ function Projectiles2:update(dt, target)
           table.remove(self.mounted, i)
         end
     end
+	print("<<< Exiting update(dt=" .. tostring(dt) .. ",target=" .. tostring(target) .. ")")
 end
 
 function Projectiles2:draw()
+	print(">>> Entering draw()")
     for i,v in pairs(self.mounted) do
         local spriteNum = math.floor(self.animation.current / self.animation.duration * #self.animation.quads) + 1
 

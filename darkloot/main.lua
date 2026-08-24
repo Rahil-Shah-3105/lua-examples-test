@@ -12,10 +12,17 @@ local duration = 0.11
 
 local function upgradeEntity(entity)
   entity.exp = entity.exp + 50
+print(">>> Entering upgradeEntity(entity=" .. tostring(entity) .. ")")
 
+print("upgradeEntity(entity=" .. tostring(entity) .. "): entity.exp → " .. tostring(entity.exp) .. "")
   -- level up
   if entity.exp >= entity.nextExp then
     entity.nextExp = entity.nextExp * 2
+	print("upgradeEntity(entity=" .. tostring(entity) .. "): entity.nextExp → " .. tostring(entity.nextExp) .. "")
+	print("upgradeEntity(entity=" .. tostring(entity) .. "): entity.level → " .. tostring(entity.level) .. "")
+	print("upgradeEntity(entity=" .. tostring(entity) .. "): entity.rate → " .. tostring(entity.rate) .. "")
+	print("upgradeEntity(entity=" .. tostring(entity) .. "): entity.cost → " .. tostring(entity.cost) .. "")
+	print("upgradeEntity(entity=" .. tostring(entity) .. "): entity.value → " .. tostring(entity.value) .. "")
     entity.level = entity.level + 1
     entity.rate = entity.rate - 20
     entity.cost = entity.cost + 25
@@ -23,6 +30,7 @@ local function upgradeEntity(entity)
     return true
   end
 
+print("<<< Exiting upgradeEntity(entity=" .. tostring(entity) .. ")")
   return false
 end
 
@@ -36,6 +44,7 @@ local function drawCharacter(c, name)
     c.coords.x + 60,
     height + 24 - c.coords.y,
     width
+print(">>> Entering drawCharacter(c=" .. tostring(c) .. ",name=" .. tostring(name) .. ")")
   )
   love.graphics.printf(
     "EXP  " .. c.exp .. "",
@@ -49,11 +58,14 @@ local function drawCharacter(c, name)
     height + 48 - c.coords.y,
     width
   )
+print("<<< Exiting drawCharacter(c=" .. tostring(c) .. ",name=" .. tostring(name) .. ")")
 end
 
 local function randomSelectResource()
   eventValue = math.random(1, 26)
 
+print("randomSelectResource(): eventValue → " .. tostring(eventValue) .. "")
+print(">>> Entering randomSelectResource()")
   local result = ({
     [1]="copper",
     [2]="copper",
@@ -83,6 +95,7 @@ local function randomSelectResource()
     [26]="iron"
   })[eventValue];
 
+print("<<< Exiting randomSelectResource()")
   return result
 end
 
@@ -90,6 +103,7 @@ local function merchantEvent(activity, encounters, viewer)
   activity:add("Merchant: I came to bring your stock to the king.")
   sellEvent = viewer:sell(inventory, cMerchant.value)
 
+print(">>> Entering merchantEvent(activity=" .. tostring(activity) .. ",encounters=" .. tostring(encounters) .. ",viewer=" .. tostring(viewer) .. ")")
   if sellEvent == false then
     activity:add("Merchant: I came to bring your stock to the king, but you have nothing for sale.")
   end
@@ -104,6 +118,7 @@ local function blacksmithEvent(activity, encounters, inventory)
   activity:add("Blacksmith: I tried to create something.")
   createEvent = inventory:create(resources)
   if createEvent == false then
+print(">>> Entering blacksmithEvent(activity=" .. tostring(activity) .. ",encounters=" .. tostring(encounters) .. ",inventory=" .. tostring(inventory) .. ")")
     activity:add("Blacksmith: I failed to create an item.")
   end
   if createEvent ~= false then
@@ -111,6 +126,7 @@ local function blacksmithEvent(activity, encounters, inventory)
   end
 
   encounters:showEncounter('blacksmith', 86)
+print("<<< Exiting blacksmithEvent(activity=" .. tostring(activity) .. ",encounters=" .. tostring(encounters) .. ",inventory=" .. tostring(inventory) .. ")")
 end
 
 local function gathererEvent(activity, encounters, resources)
@@ -118,12 +134,17 @@ local function gathererEvent(activity, encounters, resources)
   resources:add(foundResource, 1)
   activity:add("Gatherer: I found a valuable resource, I found " .. foundResource .. ".")
   encounters:showEncounter('gatherer', 38)
+print(">>> Entering gathererEvent(activity=" .. tostring(activity) .. ",encounters=" .. tostring(encounters) .. ",resources=" .. tostring(resources) .. ")")
+print("<<< Exiting gathererEvent(activity=" .. tostring(activity) .. ",encounters=" .. tostring(encounters) .. ",resources=" .. tostring(resources) .. ")")
 end
 
 function love.mousepressed(mx, my, button)
+print(">>> Entering mousepressed(mx=" .. tostring(mx) .. ",my=" .. tostring(my) .. ",button=" .. tostring(button) .. ")")
   height = love.graphics.getHeight()
   width = love.graphics.getWidth()
 
+print("mousepressed(mx=" .. tostring(mx) .. ",my=" .. tostring(my) .. ",button=" .. tostring(button) .. "): width → " .. tostring(width) .. "")
+print("mousepressed(mx=" .. tostring(mx) .. ",my=" .. tostring(my) .. ",button=" .. tostring(button) .. "): height → " .. tostring(height) .. "")
   if button == 1
   and mx >= cBlacksmith.coords.x and mx < cBlacksmith.coords.x + cBlacksmith.image:getWidth()
   and my >= cBlacksmith.coords.y and my < height - cBlacksmith.coords.y + cBlacksmith.image:getHeight() then
@@ -190,9 +211,28 @@ function love.mousepressed(mx, my, button)
 
     return true
   end
+print("<<< Exiting mousepressed(mx=" .. tostring(mx) .. ",my=" .. tostring(my) .. ",button=" .. tostring(button) .. ")")
 end
 
 function love.load()
+print(">>> Entering load()")
+print("load(): rate → " .. tostring(rate) .. "")
+print("load(): trackOne → " .. tostring(trackOne) .. "")
+print("load(): cost → " .. tostring(cost) .. "")
+print("load(): nextExp → " .. tostring(nextExp) .. "")
+print("load(): trackTwo → " .. tostring(trackTwo) .. "")
+print("load(): exp → " .. tostring(exp) .. "")
+print("load(): level → " .. tostring(level) .. "")
+print("load(): trackThree → " .. tostring(trackThree) .. "")
+print("load(): coords → " .. tostring(coords) .. "")
+print("load(): image → " .. tostring(image) .. "")
+print("load(): trackFour → " .. tostring(trackFour) .. "")
+print("load(): name → " .. tostring(name) .. "")
+print("load(): cGatherer → " .. tostring(cGatherer) .. "")
+print("load(): font → " .. tostring(font) .. "")
+print("load(): monoFont → " .. tostring(monoFont) .. "")
+print("load(): value → " .. tostring(value) .. "")
+print("load(): graphics → " .. tostring(graphics) .. "")
   trackOne = love.audio.newSource("track-1.mp3", "stream")
   trackOne:setLooping(true)
   love.audio.play(trackOne)
@@ -218,6 +258,12 @@ function love.load()
   world = World({ items = {} })
   encounters = Encounters()
 
+print("load(): viewer → " .. tostring(viewer) .. "")
+print("load(): activity → " .. tostring(activity) .. "")
+print("load(): resources → " .. tostring(resources) .. "")
+print("load(): inventory → " .. tostring(inventory) .. "")
+print("load(): world → " .. tostring(world) .. "")
+print("load(): encounters → " .. tostring(encounters) .. "")
   cBlacksmith = {
     name = "Blacksmith's Guild",
     image = love.graphics.newImage("assets/upgrade-blacksmith.png"),
@@ -232,6 +278,7 @@ function love.load()
     rate = 960,
     value = 0
   }
+print("load(): cBlacksmith → " .. tostring(cBlacksmith) .. "")
 
   cGatherer = {
     name = "Gatherer's Guild",
@@ -280,6 +327,7 @@ function love.load()
 end
 
 function love.update(dt)
+print(">>> Entering update(dt=" .. tostring(dt) .. ")")
   activity:update(dt)
   resources:update(dt)
   inventory:update(dt)
@@ -288,6 +336,7 @@ function love.update(dt)
   encounters:update(dt)
 
   elapsed = elapsed + dt + cCastle.level * 0.01
+print("update(dt=" .. tostring(dt) .. "): elapsed → " .. tostring(elapsed) .. "")
   if elapsed < duration then
     return false
   end
@@ -298,6 +347,7 @@ function love.update(dt)
 
   eventValue = math.random(1, 1000)
 
+print("update(dt=" .. tostring(dt) .. "): eventValue → " .. tostring(eventValue) .. "")
   if eventValue >= cMerchant.rate then
     return merchantEvent(activity, encounters, viewer)
   end
@@ -310,14 +360,19 @@ function love.update(dt)
     return gathererEvent(activity, encounters, resources)
   end
 
+print("<<< Exiting update(dt=" .. tostring(dt) .. ")")
   return activity:add("Time has passed..")
 end
 
 function love.draw()
+print(">>> Entering draw()")
   love.graphics.setFont(font)
   height = love.graphics.getHeight()
   width = love.graphics.getWidth()
 
+print("draw(): height → " .. tostring(height) .. "")
+print("draw(): width → " .. tostring(width) .. "")
+print("draw(): graphics → " .. tostring(graphics) .. "")
   encounters:draw()
   activity:draw()
   resources:draw()
@@ -331,4 +386,5 @@ function love.draw()
   drawCharacter(cBlacksmith)
   drawCharacter(cMerchant)
   drawCharacter(cCastle)
+print("<<< Exiting draw()")
 end

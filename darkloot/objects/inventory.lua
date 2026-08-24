@@ -99,42 +99,61 @@ local function insertItem(t, item)
     rarity = item.rarity
   })
 
+print(">>> Entering insertItem(t=" .. tostring(t) .. ",item=" .. tostring(item) .. ")")
+print("insertItem(t=" .. tostring(t) .. ",item=" .. tostring(item) .. "): index → " .. tostring(index) .. "")
+print("insertItem(t=" .. tostring(t) .. ",item=" .. tostring(item) .. "): name → " .. tostring(name) .. "")
   return item
 end
 
 function Entity:new(p)
+print(">>> Entering new(p=" .. tostring(p) .. ")")
   self.items = p.items
   self.max = 20
+print("new(p=" .. tostring(p) .. "): self.max → " .. tostring(self.max) .. "")
+print("new(p=" .. tostring(p) .. "): self.count → " .. tostring(self.count) .. "")
+print("new(p=" .. tostring(p) .. "): self.items → " .. tostring(self.items) .. "")
+print("<<< Exiting new(p=" .. tostring(p) .. ")")
   self.count = 0
 end
 
 function Entity:upgrade(max)
+print(">>> Entering upgrade(max=" .. tostring(max) .. ")")
+print("upgrade(max=" .. tostring(max) .. "): self.max → " .. tostring(self.max) .. "")
+print("<<< Exiting upgrade(max=" .. tostring(max) .. ")")
   self.max = self.max + max
 end
 
 function Entity:dump()
+print(">>> Entering dump()")
   local money = 0
 
   for i, item in ipairs (self.items) do
     money = money + item.value
     table.remove(self.items, i)
     self.count = self.count - 1
+	print("dump(): self.count → " .. tostring(self.count) .. "")
   end
 
+print("<<< Exiting dump()")
   return money
 end
 
 function Entity:create(resources)
+print(">>> Entering create(resources=" .. tostring(resources) .. ")")
   if self.count >= self.max then
     return false
   end
 
   choice = materialChoices[math.random(1, 4)]
+print("create(resources=" .. tostring(resources) .. "): choice → " .. tostring(choice) .. "")
+print("create(resources=" .. tostring(resources) .. "): item → " .. tostring(item) .. "")
   item = equipmentChoices[math.random(1, 2)]
 
   result = resources:remove(choice, cost[item])
 
   if result >= cost[item] then
+	print("<<< Exiting create(resources=" .. tostring(resources) .. ")")
+	print("create(resources=" .. tostring(resources) .. "): creation → " .. tostring(creation) .. "")
     creation = equipment[item][choice]
     createdItem = insertItem(self.items, {
       id = inventoryId,
@@ -147,6 +166,15 @@ function Entity:create(resources)
       rarity = creation.rarity
     })
 
+	print("create(resources=" .. tostring(resources) .. "): createdItem → " .. tostring(createdItem) .. "")
+	print("create(resources=" .. tostring(resources) .. "): index → " .. tostring(index) .. "")
+	print("create(resources=" .. tostring(resources) .. "): name → " .. tostring(name) .. "")
+	print("create(resources=" .. tostring(resources) .. "): base → " .. tostring(base) .. "")
+	print("create(resources=" .. tostring(resources) .. "): sides → " .. tostring(sides) .. "")
+	print("create(resources=" .. tostring(resources) .. "): modifier → " .. tostring(modifier) .. "")
+	print("create(resources=" .. tostring(resources) .. "): value → " .. tostring(value) .. "")
+	print("create(resources=" .. tostring(resources) .. "): rarity → " .. tostring(rarity) .. "")
+	print("create(resources=" .. tostring(resources) .. "): self.count → " .. tostring(self.count) .. "")
     self.count = self.count + 1
     inventoryId = inventoryId + 1
     inventoryCount = inventoryCount + 1
@@ -155,18 +183,27 @@ function Entity:create(resources)
            "d" .. createdItem.sides ..
            "+" .. createdItem.modifier .. ""
   end
+print("create(resources=" .. tostring(resources) .. "): inventoryId → " .. tostring(inventoryId) .. "")
+print("create(resources=" .. tostring(resources) .. "): inventoryCount → " .. tostring(inventoryCount) .. "")
 
   return false
 end
 
 function Entity:update(dt)
+print(">>> Entering update(dt=" .. tostring(dt) .. ")")
   -- todo
+print("<<< Exiting update(dt=" .. tostring(dt) .. ")")
 end
 
 function Entity:draw()
+print(">>> Entering draw()")
   height = love.graphics.getHeight()
   width = love.graphics.getWidth()
   iterations = 0
+print("draw(): width → " .. tostring(width) .. "")
+print("draw(): iterations → " .. tostring(iterations) .. "")
+print("draw(): height → " .. tostring(height) .. "")
+print("draw(): graphics → " .. tostring(graphics) .. "")
 
   love.graphics.setColor(255, 255, 255)
   love.graphics.printf(
@@ -190,6 +227,7 @@ function Entity:draw()
         "right"
     )
   end
+print("<<< Exiting draw()")
 end
 
 return Entity
