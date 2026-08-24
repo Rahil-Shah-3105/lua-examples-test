@@ -11,21 +11,30 @@ local level = 0
 
 function Game:new(nextLevel)
   self.entities = {}
+print(">>> Entering new(nextLevel=" .. tostring(nextLevel) .. ")")
   self.debug = {}
   self.player = {};
+print("new(nextLevel=" .. tostring(nextLevel) .. "): self.debug → " .. tostring(self.debug) .. "")
+print("new(nextLevel=" .. tostring(nextLevel) .. "): self.player → " .. tostring(self.player) .. "")
+print("new(nextLevel=" .. tostring(nextLevel) .. "): self.entities → " .. tostring(self.entities) .. "")
+print("<<< Exiting new(nextLevel=" .. tostring(nextLevel) .. ")")
 
   self:loadLevel(nextLevel);
 end
 
 function Game:setupPhysics()
+print(">>> Entering setupPhysics()")
   self.world = bump.newWorld()
   self.world.gravity = GRAVITY
+print("<<< Exiting setupPhysics()")
 end
 
 function Game:loadLevel(world)
   self.entities = {}
+print(">>> Entering loadLevel(world=" .. tostring(world) .. ")")
   self:setupPhysics();
 
+print("loadLevel(world=" .. tostring(world) .. "): self.entities → " .. tostring(self.entities) .. "")
   self.player = Player(
     32, 
     love.graphics.getHeight() - 400, 
@@ -54,6 +63,8 @@ function Game:loadLevel(world)
           height = 32
         })
 
+		print("loadLevel(world=" .. tostring(world) .. "): width → " .. tostring(width) .. "")
+		print("loadLevel(world=" .. tostring(world) .. "): height → " .. tostring(height) .. "")
         self.world:add(p, x, y, 32, 32)
         table.insert(self.entities, p)
       end
@@ -75,6 +86,7 @@ function Game:loadLevel(world)
         self.world:add(p, x, y, 32, 32)
         table.insert(self.entities, p)
       end
+		print("loadLevel(world=" .. tostring(world) .. "): direction → " .. tostring(direction) .. "")
 
       -- moving platforms down
       if v2 == 3 then
@@ -143,6 +155,7 @@ function Game:loadLevel(world)
         self.world:add(p, x, y, 16, 16)
         table.insert(self.entities, p)
       end
+		print("loadLevel(world=" .. tostring(world) .. "): name → " .. tostring(name) .. "")
 
       -- ending
       if v2 == -1 then
@@ -166,17 +179,21 @@ function Game:loadLevel(world)
   end
 
   table.insert(self.entities, self.player)
+print("<<< Exiting loadLevel(world=" .. tostring(world) .. ")")
 end
 
 function Game:checkCols(entity, cols)
+print(">>> Entering checkCols(entity=" .. tostring(entity) .. ",cols=" .. tostring(cols) .. ")")
   local this = entity.name;
   
   entity.grounded = false
+print("checkCols(entity=" .. tostring(entity) .. ",cols=" .. tostring(cols) .. "): entity.grounded → " .. tostring(entity.grounded) .. "")
   for i,v in ipairs (cols) do
     local other = cols[i].other.name
 
     if this == "PLAYER" and other == "FINISH" then
       level = level + 1
+	print("checkCols(entity=" .. tostring(entity) .. ",cols=" .. tostring(cols) .. "): level → " .. tostring(level) .. "")
       self:loadLevel(Levels[level])
     end
 
@@ -193,19 +210,24 @@ function Game:checkCols(entity, cols)
 
     if cols[i].normal.y == -1 then
       entity.yv = 0
+	print("checkCols(entity=" .. tostring(entity) .. ",cols=" .. tostring(cols) .. "): entity.yv → " .. tostring(entity.yv) .. "")
       entity.grounded = true
     elseif cols[i].normal.y == 1 then
       entity.yv = -entity.yv / 4
       entity.dropping = 20
+	print("checkCols(entity=" .. tostring(entity) .. ",cols=" .. tostring(cols) .. "): entity.dropping → " .. tostring(entity.dropping) .. "")
     end
 
     if cols[i].normal.x ~= 0 then
       entity.xv = 0
+	print("checkCols(entity=" .. tostring(entity) .. ",cols=" .. tostring(cols) .. "): entity.xv → " .. tostring(entity.xv) .. "")
     end
   end
+print("<<< Exiting checkCols(entity=" .. tostring(entity) .. ",cols=" .. tostring(cols) .. ")")
 end
 
 function Game:update(dt)
+print(">>> Entering update(dt=" .. tostring(dt) .. ")")
   self:manageKeyboard(dt)
 
   for i = 1, #self.entities do
@@ -226,7 +248,9 @@ function Game:update(dt)
 
   state = self.player:update(dt)
   if state.y > love.graphics.getHeight() then
+print("update(dt=" .. tostring(dt) .. "): state → " .. tostring(state) .. "")
     level = level - 1
+	print("update(dt=" .. tostring(dt) .. "): level → " .. tostring(level) .. "")
 
     if level < 0 then
       level = 0
@@ -234,9 +258,11 @@ function Game:update(dt)
 
     self:loadLevel(Levels[level])
   end
+print("<<< Exiting update(dt=" .. tostring(dt) .. ")")
 end
 
 function Game:manageKeyboard(dt)
+print(">>> Entering manageKeyboard(dt=" .. tostring(dt) .. ")")
   if love.keyboard.isDown("space") then
     self.player:jump(dt)
   end
@@ -260,14 +286,19 @@ function Game:manageKeyboard(dt)
   elseif love.keyboard.isDown("a") then
     self.player:moveLeft(dt);
   end
+print("<<< Exiting manageKeyboard(dt=" .. tostring(dt) .. ")")
 end
 
 function Game:draw()
+print(">>> Entering draw()")
   love.graphics.setColor(1, 1, 1)
 
+print("draw(): graphics → " .. tostring(graphics) .. "")
+print("draw(): debug → " .. tostring(debug) .. "")
   debug = " "
   
   for i = 1, #self.entities do
     self.entities[i]:draw()
   end
+print("<<< Exiting draw()")
 end

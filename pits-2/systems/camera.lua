@@ -9,7 +9,9 @@ local function Camera(res)
   local system  = tiny.processingSystem({ update = true })
   system.filter = tiny.requireAll('camera')
 
+print(">>> Entering Camera(res=" .. tostring(res) .. ")")
   function system:process(e, dt)
+	print(">>> Entering process(e=" .. tostring(e) .. ",dt=" .. tostring(dt) .. ")")
     local pos, size, state = e.pos, e.size, e.state
 
     local dx = pos.x + size.w/2 - camera.x
@@ -33,8 +35,10 @@ local function Camera(res)
     end
 
     camera:move(32*dx*dt, 4*dy*dt)
+	print("<<< Exiting process(e=" .. tostring(e) .. ",dt=" .. tostring(dt) .. ")")
   end
 
+print("<<< Exiting Camera(res=" .. tostring(res) .. ")")
   return system
 end
 

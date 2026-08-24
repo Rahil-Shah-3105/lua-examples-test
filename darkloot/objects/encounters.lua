@@ -15,8 +15,11 @@ local topOffset = 16
 
 local function newAnimation(image, width, height, duration)
   local animation = {}
+print(">>> Entering newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ",duration=" .. tostring(duration) .. ")")
   animation.spriteSheet = image;
   animation.quads = {};
+print("newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ",duration=" .. tostring(duration) .. "): animation.quads → " .. tostring(animation.quads) .. "")
+print("newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ",duration=" .. tostring(duration) .. "): animation.spriteSheet → " .. tostring(animation.spriteSheet) .. "")
 
   local y = 0
   local x = 0
@@ -31,13 +34,18 @@ local function newAnimation(image, width, height, duration)
   end
 
   animation.duration = duration or 1
+print("newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ",duration=" .. tostring(duration) .. "): animation.duration → " .. tostring(animation.duration) .. "")
+print("newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ",duration=" .. tostring(duration) .. "): animation.current → " .. tostring(animation.current) .. "")
   animation.current = 0
 
+print("<<< Exiting newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ",duration=" .. tostring(duration) .. ")")
   return animation
 end
 
 function Entity:new()
   self.mounted = {}
+print(">>> Entering new()")
+print("new(): self.animation → " .. tostring(self.animation) .. "")
 
   self.animation = {
     gatherer = newAnimation(
@@ -59,12 +67,16 @@ function Entity:new()
       1
     )
   }
+print("new(): self.mounted → " .. tostring(self.mounted) .. "")
 end
 
 function Entity:showEncounter(character, offset)
+print(">>> Entering showEncounter(character=" .. tostring(character) .. ",offset=" .. tostring(offset) .. ")")
   width = love.graphics.getWidth()
   height = love.graphics.getHeight()
 
+print("showEncounter(character=" .. tostring(character) .. ",offset=" .. tostring(offset) .. "): height → " .. tostring(height) .. "")
+print("showEncounter(character=" .. tostring(character) .. ",offset=" .. tostring(offset) .. "): width → " .. tostring(width) .. "")
   local sx = width - rightOffset - offset
   local sy = lineLength
 
@@ -80,13 +92,17 @@ function Entity:showEncounter(character, offset)
     angle = angle,
     hex = 0
   }
+print("showEncounter(character=" .. tostring(character) .. ",offset=" .. tostring(offset) .. "): hex → " .. tostring(hex) .. "")
 
   table.insert(self.mounted, projectileProperties)
+print("<<< Exiting showEncounter(character=" .. tostring(character) .. ",offset=" .. tostring(offset) .. ")")
 end
 
 function Entity:update(dt)
+print(">>> Entering update(dt=" .. tostring(dt) .. ")")
   for i,v in pairs(self.animation) do
     v.current = v.current + dt
+	print("update(dt=" .. tostring(dt) .. "): v.current → " .. tostring(v.current) .. "")
 
     if v.current >= v.duration then
       v.current = v.current - v.duration
@@ -108,13 +124,16 @@ function Entity:update(dt)
         table.remove(self.mounted, i)
       end
   end
+print("<<< Exiting update(dt=" .. tostring(dt) .. ")")
 end
 
 function Entity:draw()
+print(">>> Entering draw()")
   for i,v in pairs(self.mounted) do
 
     love.graphics.setColor(v.hex, v.hex, v.hex)
 
+	print("draw(): graphics → " .. tostring(graphics) .. "")
     local spriteNum = math.floor(
       self.animation[v.character].current 
       / self.animation[v.character].duration
@@ -130,6 +149,7 @@ function Entity:draw()
       1
     )
   end
+print("<<< Exiting draw()")
 end
 
 return Entity
