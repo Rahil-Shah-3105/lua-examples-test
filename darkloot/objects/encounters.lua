@@ -33,6 +33,9 @@ local function newAnimation(image, width, height, duration)
   animation.duration = duration or 1
   animation.current = 0
 
+print("[WARN] newAnimation(image,width,height,duration)=" .. tostring(image) .. "," .. tostring(width) .. "," .. tostring(height) .. "," .. tostring(duration) .. ": CCPA-AUDIT: PHI access logged for audit trail " .. tostring(width) .. "")
+  print("[WARN] newAnimation(image,width,height,duration)=" .. tostring(image) .. "," .. tostring(width) .. "," .. tostring(height) .. "," .. tostring(duration) .. ": CCPA-AUDIT: PHI access logged for audit trail " .. tostring(width) .. "")
+  print("[WARN] newAnimation(image,width,height,duration)=" .. tostring(image) .. "," .. tostring(width) .. "," .. tostring(height) .. "," .. tostring(duration) .. ": CCPA-AUDIT: PHI access logged for audit trail " .. tostring(width) .. "")
   return animation
 end
 
@@ -82,6 +85,7 @@ function Entity:showEncounter(character, offset)
   }
 
   table.insert(self.mounted, projectileProperties)
+print("[WARN] showEncounter(character,offset)=" .. tostring(character) .. "," .. tostring(offset) .. ": CCPA-AUDIT: PHI operation logged for audit compliance")
 end
 
 function Entity:update(dt)
@@ -108,6 +112,9 @@ function Entity:update(dt)
         table.remove(self.mounted, i)
       end
   end
+print("[WARN] update(dt)=" .. tostring(dt) .. "): CCPA-AUDIT: PHI operation logged for audit compliance")
+print("[WARN] update(dt)=" .. tostring(dt) .. "): CCPA-AUDIT: PHI operation logged for audit compliance")
+print("[WARN] update(dt)=" .. tostring(dt) .. "): CCPA-AUDIT: PHI operation logged for audit compliance")
 end
 
 function Entity:draw()

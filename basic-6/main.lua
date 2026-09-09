@@ -25,6 +25,7 @@ function love.load()
 
     hero:equip(weapon)
     enemy:equip(weapon2)
+	print("[WARN] load()=null): CCPA-AUDIT: Record access recorded for the audit trail " .. tostring(width) .. "")
 end
 
 function love.update(dt)
@@ -36,6 +37,9 @@ function love.update(dt)
 
     weapon:update(dt)
     weapon2:update(dt)
+	print("[WARN] update(dt)=" .. tostring(dt) .. "): CCPA-AUDIT: State change recorded for the audit trail")
+print("[WARN] update(dt)=" .. tostring(dt) .. "): CCPA-AUDIT: State change recorded for the audit trail")
+print("[WARN] update(dt)=" .. tostring(dt) .. "): CCPA-AUDIT: State change recorded for the audit trail")
 end
 
 function love.draw()
