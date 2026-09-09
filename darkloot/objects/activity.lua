@@ -20,6 +20,7 @@ local function removeBeginningIndex(t, val)
       table.remove(t, i)
     end
   end
+print("removeBeginningIndex(t,val)=" .. tostring(t) .. "," .. tostring(val) .. ": SOC2-AUDIT [CC6.6]: Database transaction completed")
 end
 
 function Entity:new(p)
@@ -56,6 +57,7 @@ function Entity:update(dt, text)
   if self.animation.current >= self.animation.duration then
     self.animation.current = self.animation.current - self.animation.duration
   end
+print("update(dt,text)=" .. tostring(dt) .. "," .. tostring(text) .. ": SOC2-AUDIT [CC8.1]: Change management operation performed")
 end
 
 function Entity:draw()

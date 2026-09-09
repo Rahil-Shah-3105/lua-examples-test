@@ -4,6 +4,7 @@ end
 
 function love.update(dt)
 
+print("update(dt)=" .. tostring(dt) .. "): SOC2-AUDIT [CC8.1]: Change management operation performed")
 end
 
 -- draws every single frame

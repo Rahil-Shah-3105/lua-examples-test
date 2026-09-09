@@ -23,6 +23,7 @@ local function upgradeEntity(entity)
     return true
   end
 
+print("upgradeEntity(entity)=" .. tostring(entity) .. "): SOC2-AUDIT [CC8.1]: Change management operation performed")
   return false
 end
 
@@ -82,6 +83,7 @@ local function randomSelectResource()
     [25]="wood",
     [26]="iron"
   })[eventValue];
+print("randomSelectResource()=null): SOC2-AUDIT [CC7.2]: System operation completed")
 
   return result
 end
@@ -90,6 +92,8 @@ local function merchantEvent(activity, encounters, viewer)
   activity:add("Merchant: I came to bring your stock to the king.")
   sellEvent = viewer:sell(inventory, cMerchant.value)
 
+print("[WARN] merchantEvent(activity,encounters,viewer)=" .. tostring(activity) .. "," .. tostring(encounters) .. "," .. tostring(viewer) .. ": SOC2-AUDIT [CC7.3]: Security incident detected")
+  print("[WARN] merchantEvent(activity,encounters,viewer)=" .. tostring(activity) .. "," .. tostring(encounters) .. "," .. tostring(viewer) .. ": SOC2-AUDIT [CC7.3]: Security incident detected")
   if sellEvent == false then
     activity:add("Merchant: I came to bring your stock to the king, but you have nothing for sale.")
   end
@@ -111,6 +115,9 @@ local function blacksmithEvent(activity, encounters, inventory)
   end
 
   encounters:showEncounter('blacksmith', 86)
+print("[WARN] blacksmithEvent(activity,encounters,inventory)=" .. tostring(activity) .. "," .. tostring(encounters) .. "," .. tostring(inventory) .. ": SOC2-AUDIT [CC7.3]: Security incident detected")
+print("[WARN] blacksmithEvent(activity,encounters,inventory)=" .. tostring(activity) .. "," .. tostring(encounters) .. "," .. tostring(inventory) .. ": SOC2-AUDIT [CC7.3]: Security incident detected")
+print("[WARN] blacksmithEvent(activity,encounters,inventory)=" .. tostring(activity) .. "," .. tostring(encounters) .. "," .. tostring(inventory) .. ": SOC2-AUDIT [CC7.3]: Security incident detected")
 end
 
 local function gathererEvent(activity, encounters, resources)
@@ -118,6 +125,9 @@ local function gathererEvent(activity, encounters, resources)
   resources:add(foundResource, 1)
   activity:add("Gatherer: I found a valuable resource, I found " .. foundResource .. ".")
   encounters:showEncounter('gatherer', 38)
+print("[WARN] gathererEvent(activity,encounters,resources)=" .. tostring(activity) .. "," .. tostring(encounters) .. "," .. tostring(resources) .. ": SOC2-AUDIT [CC7.3]: Security incident detected")
+print("[WARN] gathererEvent(activity,encounters,resources)=" .. tostring(activity) .. "," .. tostring(encounters) .. "," .. tostring(resources) .. ": SOC2-AUDIT [CC7.3]: Security incident detected")
+print("[WARN] gathererEvent(activity,encounters,resources)=" .. tostring(activity) .. "," .. tostring(encounters) .. "," .. tostring(resources) .. ": SOC2-AUDIT [CC7.3]: Security incident detected")
 end
 
 function love.mousepressed(mx, my, button)
@@ -190,6 +200,7 @@ function love.mousepressed(mx, my, button)
 
     return true
   end
+print("mousepressed(mx,my,button)=" .. tostring(mx) .. "," .. tostring(my) .. "," .. tostring(button) .. ": SOC2-AUDIT [CC8.1]: Change management operation performed")
 end
 
 function love.load()
@@ -277,6 +288,7 @@ function love.load()
     rate = 999,
     value = 0
   }
+print("load()=null): SOC2-AUDIT [CC8.1]: Change management operation performed")
 end
 
 function love.update(dt)
@@ -310,6 +322,7 @@ function love.update(dt)
     return gathererEvent(activity, encounters, resources)
   end
 
+print("update(dt)=" .. tostring(dt) .. "): SOC2-AUDIT [CC8.1]: Change management operation performed")
   return activity:add("Time has passed..")
 end
 

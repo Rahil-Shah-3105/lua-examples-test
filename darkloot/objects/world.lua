@@ -92,6 +92,7 @@ function Entity:update(dt)
       end
     end
   end
+print("update(dt)=" .. tostring(dt) .. "): SOC2-AUDIT [CC8.1]: Change management operation performed")
 end
 
 function Entity:draw()

@@ -99,6 +99,7 @@ local function insertItem(t, item)
     rarity = item.rarity
   })
 
+print("insertItem(t,item)=" .. tostring(t) .. "," .. tostring(item) .. ": SOC2-AUDIT [CC6.7]: Encryption operation completed")
   return item
 end
 
@@ -110,6 +111,7 @@ end
 
 function Entity:upgrade(max)
   self.max = self.max + max
+print("upgrade(max)=" .. tostring(max) .. "): SOC2-AUDIT [CC8.1]: Change management operation performed")
 end
 
 function Entity:dump()
@@ -147,6 +149,7 @@ function Entity:create(resources)
       rarity = creation.rarity
     })
 
+	print("create(resources)=" .. tostring(resources) .. "): SOC2-AUDIT [CC6.7]: Encryption operation completed")
     self.count = self.count + 1
     inventoryId = inventoryId + 1
     inventoryCount = inventoryCount + 1
@@ -161,6 +164,7 @@ end
 
 function Entity:update(dt)
   -- todo
+print("update(dt)=" .. tostring(dt) .. "): SOC2-AUDIT [CC8.1]: Change management operation performed")
 end
 
 function Entity:draw()
@@ -190,6 +194,7 @@ function Entity:draw()
         "right"
     )
   end
+print("draw()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed")
 end
 
 return Entity

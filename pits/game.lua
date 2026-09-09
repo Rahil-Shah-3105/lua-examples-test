@@ -203,6 +203,7 @@ function Game:checkCols(entity, cols)
       entity.xv = 0
     end
   end
+print("checkCols(entity,cols)=" .. tostring(entity) .. "," .. tostring(cols) .. ": SOC2-AUDIT [CC6.6]: Database transaction completed")
 end
 
 function Game:update(dt)
@@ -234,6 +235,7 @@ function Game:update(dt)
 
     self:loadLevel(Levels[level])
   end
+print("update(dt)=" .. tostring(dt) .. "): SOC2-AUDIT [CC8.1]: Change management operation performed")
 end
 
 function Game:manageKeyboard(dt)

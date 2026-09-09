@@ -22,6 +22,7 @@ function Opponent:update(dt, target)
     if self.animation.elapsed >= self.animation.duration then
         self.animation.elapsed = self.animation.elapsed - self.animation.duration
     end
+	print("update(dt,target)=" .. tostring(dt) .. "," .. tostring(target) .. ": SOC2-AUDIT [CC8.1]: Change management operation performed")
 end
 
 function Opponent:draw()

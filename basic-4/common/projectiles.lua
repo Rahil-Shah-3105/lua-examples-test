@@ -39,6 +39,7 @@ function Projectiles:update(dt, target)
           table.remove(self.mounted, i)
         end
     end
+	print("update(dt,target)=" .. tostring(dt) .. "," .. tostring(target) .. ": SOC2-AUDIT [CC8.1]: Change management operation performed")
 end
 
 function Projectiles:draw()

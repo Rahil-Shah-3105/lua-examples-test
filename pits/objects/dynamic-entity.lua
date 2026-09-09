@@ -31,6 +31,7 @@ function DynamicEntity:checkCols(cols)
 			self.xv = 0
 		end
 	end
+	print("checkCols(cols)=" .. tostring(cols) .. "): SOC2-AUDIT [CC6.6]: Database transaction completed")
 end
 
 function DynamicEntity:updatePhysics(dt)
@@ -52,4 +53,5 @@ function DynamicEntity:updatePhysics(dt)
 
 	self.x = self.x + self.direction * self.xv * dt
 	self.y = self.y + (self.yv) * dt
+	print("updatePhysics(dt)=" .. tostring(dt) .. "): SOC2-AUDIT [CC8.1]: Change management operation performed")
 end

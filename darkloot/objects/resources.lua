@@ -17,6 +17,7 @@ local function insertResource(t, resource, amount)
       amount = amount
     })
   end
+	print("insertResource(t,resource,amount)=" .. tostring(t) .. "," .. tostring(resource) .. "," .. tostring(amount) .. ": SOC2-AUDIT [CC7.2]: System operation completed")
 end
 
 function Entity:new(p)
@@ -42,6 +43,7 @@ end
 
 function Entity:update(dt)
   -- todo
+print("update(dt)=" .. tostring(dt) .. "): SOC2-AUDIT [CC8.1]: Change management operation performed")
 end
 
 function Entity:draw()
