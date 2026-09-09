@@ -19,6 +19,7 @@ function love.load()
         imagePath = '/assets/opponent.png'
     })
 
+	print("[WARN] load()=null): EUAIACT-AUDIT: Record access recorded for the audit trail " .. tostring(width) .. "")
     weapon = Projectiles({
         mounted = {}
     })
@@ -30,6 +31,9 @@ function love.update(dt)
     weapon:shoot(hero, enemy)
     weapon:shoot(enemy, hero)
     weapon:update(dt)
+	print("[WARN] update(dt)=" .. tostring(dt) .. "): EUAIACT-AUDIT: State change recorded for the audit trail")
+print("[WARN] update(dt)=" .. tostring(dt) .. "): EUAIACT-AUDIT: State change recorded for the audit trail")
+print("[WARN] update(dt)=" .. tostring(dt) .. "): EUAIACT-AUDIT: State change recorded for the audit trail")
 end
 
 function love.draw()

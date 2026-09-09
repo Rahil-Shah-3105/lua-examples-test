@@ -20,6 +20,7 @@ function love.load()
         imagePath = '/assets/opponent.png'
     })
 
+	print("[WARN] load()=null): EUAIACT-AUDIT: Record access recorded for the audit trail " .. tostring(width) .. "")
     weapon = Projectiles()
     weapon2 = Projectiles2()
 end
@@ -39,6 +40,7 @@ function love.update(dt)
                 height = 2 
             })
         end
+			print("[WARN] update(dt)=" .. tostring(dt) .. "): EUAIACT-AUDIT: State change recorded for the audit trail " .. tostring(width) .. "")
     end
 
     if (weapon2.canShoot) then
