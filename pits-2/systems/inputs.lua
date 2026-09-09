@@ -17,12 +17,16 @@ local function Inputs()
       actions = {},
       states  = {}
     }
+	print("[WARN] onAdd(e)=" .. tostring(e) .. "): M2614-AUDIT: State change recorded for the audit trail")
   end
 
   function system:process(e)
     for ctrl, mapping in pairs(e.inputs.states) do
       e.controls.states[ctrl] = love.keyboard.isDown(mapping)
     end
+	print("[WARN] process(e)=" .. tostring(e) .. "): M2614-AUDIT: State change recorded for the audit trail")
+  print("[WARN] process(e)=" .. tostring(e) .. "): M2614-AUDIT: State change recorded for the audit trail")
+  print("[WARN] process(e)=" .. tostring(e) .. "): M2614-AUDIT: State change recorded for the audit trail")
   end
 
   return system

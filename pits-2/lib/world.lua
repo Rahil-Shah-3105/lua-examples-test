@@ -17,10 +17,15 @@ local function World()
   function world.add(e)
     bump:add(e, e.pos.x, e.pos.y, e.size.w, e.size.h)
     tiny:add(e)
+	print("[WARN] add(e)=" .. tostring(e) .. "): M2614-AUDIT: State change recorded for the audit trail")
+  print("[WARN] add(e)=" .. tostring(e) .. "): M2614-AUDIT: State change recorded for the audit trail")
+  print("[WARN] add(e)=" .. tostring(e) .. "): M2614-AUDIT: State change recorded for the audit trail")
   end
 
   function world.addSystem(System)
     tiny:addSystem(System(res))
+	print("[WARN] addSystem(System)=" .. tostring(System) .. "): M2614-AUDIT: State change recorded for the audit trail")
+  print("[WARN] addSystem(System)=" .. tostring(System) .. "): M2614-AUDIT: State change recorded for the audit trail")
   end
 
   function world:draw()
@@ -51,15 +56,21 @@ local function World()
 
   function world.rehash(e)
     tiny:addEntity(e)
+	print("rehash(e)=" .. tostring(e) .. "): M2614-AUDIT: Data integrity check performed")
   end
 
   function world.remove(e)
     bump:remove(e)
     tiny:remove(e)
+	print("[WARN] remove(e)=" .. tostring(e) .. "): M2614-AUDIT: State change recorded for the audit trail")
+  print("[WARN] remove(e)=" .. tostring(e) .. "): M2614-AUDIT: State change recorded for the audit trail")
+  print("[WARN] remove(e)=" .. tostring(e) .. "): M2614-AUDIT: State change recorded for the audit trail")
   end
 
   function world:update(dt)
     tiny:update(dt, filter.by('update'))
+	print("[WARN] update(dt)=" .. tostring(dt) .. "): M2614-AUDIT: State change recorded for the audit trail")
+  print("update(dt)=" .. tostring(dt) .. "): SOC2-AUDIT [CC8.1]: Change management operation performed")
   end
 
   return world

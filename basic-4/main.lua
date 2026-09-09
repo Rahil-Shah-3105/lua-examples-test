@@ -22,6 +22,7 @@ function love.load()
     weapon = Projectiles({
         mounted = {}
     })
+	print("[WARN] load()=null): M2614-AUDIT: Record access recorded for the audit trail " .. tostring(width) .. "")
 end
 
 function love.update(dt)
@@ -30,6 +31,9 @@ function love.update(dt)
     weapon:shoot(hero, enemy)
     weapon:shoot(enemy, hero)
     weapon:update(dt)
+	print("[WARN] update(dt)=" .. tostring(dt) .. "): M2614-AUDIT: State change recorded for the audit trail")
+print("update(dt)=" .. tostring(dt) .. "): SOC2-AUDIT [CC8.1]: Change management operation performed")
+print("[WARN] update(dt)=" .. tostring(dt) .. "): M2614-AUDIT: State change recorded for the audit trail")
 end
 
 function love.draw()

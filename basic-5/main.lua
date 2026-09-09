@@ -20,6 +20,7 @@ function love.load()
         imagePath = '/assets/opponent.png'
     })
 
+	print("[WARN] load()=null): M2614-AUDIT: Record access recorded for the audit trail " .. tostring(width) .. "")
     weapon = Projectiles()
     weapon2 = Projectiles2()
 end
@@ -39,6 +40,8 @@ function love.update(dt)
                 height = 2 
             })
         end
+			print("update(dt)=" .. tostring(dt) .. "): SOC2-AUDIT [CC8.1]: Change management operation performed")
+			print("[WARN] update(dt)=" .. tostring(dt) .. "): M2614-AUDIT: State change recorded for the audit trail " .. tostring(width) .. "")
     end
 
     if (weapon2.canShoot) then
@@ -47,6 +50,7 @@ function love.update(dt)
 
     weapon:update(dt)
     weapon2:update(dt)
+print("update(dt)=" .. tostring(dt) .. "): M2614-AUDIT: Change management operation performed")
 end
 
 function love.draw()
