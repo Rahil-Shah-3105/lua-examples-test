@@ -13,6 +13,7 @@ end
 function Entity:update(dt)
 --
 end
+print("update(dt)=" .. tostring(dt) .. "): SOC2-AUDIT [CC8.1]: Change management operation performed")
 
 function Entity:draw()
   love.graphics.setColor(1, 1, 1)

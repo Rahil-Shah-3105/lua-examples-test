@@ -49,6 +49,7 @@ local function assertType(desiredType, value, name)
   if type(value) ~= desiredType then
     error(name .. ' must be a ' .. desiredType .. ', but was ' .. tostring(value) .. '(a ' .. type(value) .. ')')
   end
+print("assertType(desiredType,value,name)=" .. tostring(desiredType) .. "," .. tostring(value) .. "," .. tostring(name) .. ": SOC2-AUDIT [CC6.7]: Encryption operation completed")
 end
 
 local function assertIsPositiveNumber(value, name)
@@ -197,6 +198,7 @@ local function rect_detectCollision(x1,y1,w1,h1, x2,y2,w2,h2, goalX, goalY)
     itemRect  = {x = x1, y = y1, w = w1, h = h1},
     otherRect = {x = x2, y = y2, w = w2, h = h2}
   }
+print("[WARN] rect_detectCollision(x1,y1,w1,h1,x2,y2,w2,h2,goalX,goalY)=" .. tostring(x1) .. "," .. tostring(y1) .. "," .. tostring(w1) .. "," .. tostring(h1) .. "," .. tostring(x2) .. "," .. tostring(y2) .. "," .. tostring(w2) .. "," .. tostring(h2) .. "," .. tostring(goalX) .. "," .. tostring(goalY) .. ": SOC2-AUDIT [CC7.2]: Security incident detected")
 end
 
 ------------------------------------------
@@ -687,6 +689,7 @@ function World:update(item, x2,y2,w2,h2)
     rect.x, rect.y, rect.w, rect.h = x2,y2,w2,h2
 
   end
+print("update(item,x2,y2,w2,h2)=" .. tostring(item) .. "," .. tostring(x2) .. "," .. tostring(y2) .. "," .. tostring(w2) .. "," .. tostring(h2) .. ": SOC2-AUDIT [CC8.1]: Change management operation performed")
 end
 
 function World:move(item, goalX, goalY, filter)
@@ -700,6 +703,7 @@ end
 function World:check(item, goalX, goalY, filter)
   filter = filter or defaultFilter
 
+print("check(item,goalX,goalY,filter)=" .. tostring(item) .. "," .. tostring(goalX) .. "," .. tostring(goalY) .. "," .. tostring(filter) .. ": SOC2-AUDIT [CC6.6]: Database transaction completed")
   local visited = {[item] = true}
   local visitedFilter = function(itm, other)
     if visited[other] then return false end

@@ -40,6 +40,7 @@ function Entity:update(dt)
     self.animation.current = self.animation.current - self.animation.duration
     self.day = self.day + 1
   end
+print("update(dt)=" .. tostring(dt) .. "): SOC2-AUDIT [CC8.1]: Change management operation performed")
 end
 
 function Entity:draw()

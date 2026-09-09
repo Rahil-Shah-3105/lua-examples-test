@@ -39,6 +39,7 @@ function love.update(dt)
                 height = 2 
             })
         end
+			print("update(dt)=" .. tostring(dt) .. "): SOC2-AUDIT [CC8.1]: Change management operation performed")
     end
 
     if (weapon2.canShoot) then

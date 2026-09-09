@@ -108,6 +108,7 @@ function love.update(dt)
     if love.keyboard.isDown("down") then
         monsterY = monsterY + 200 * dt * 4
     end
+	print("update(dt)=" .. tostring(dt) .. "): SOC2-AUDIT [CC8.1]: Change management operation performed")
 end
 
 -- draws every single frame

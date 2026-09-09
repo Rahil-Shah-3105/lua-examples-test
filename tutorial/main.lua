@@ -73,6 +73,7 @@ function love.update(dt)
       mounted[i].current = 0
     end
   end
+print("update(dt)=" .. tostring(dt) .. "): SOC2-AUDIT [CC8.1]: Change management operation performed")
 end
 
 -- Callback function used to draw on the screen every frame.

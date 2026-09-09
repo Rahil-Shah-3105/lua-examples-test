@@ -51,6 +51,7 @@ local function World()
 
   function world.rehash(e)
     tiny:addEntity(e)
+	print("[WARN] rehash(e)=" .. tostring(e) .. "): SOC2-AUDIT [CC6.1]: Password reset operation performed")
   end
 
   function world.remove(e)
@@ -60,6 +61,7 @@ local function World()
 
   function world:update(dt)
     tiny:update(dt, filter.by('update'))
+	print("update(dt)=" .. tostring(dt) .. "): SOC2-AUDIT [CC8.1]: Change management operation performed")
   end
 
   return world

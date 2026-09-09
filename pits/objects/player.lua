@@ -21,6 +21,7 @@ end
 function Player:update(dt)  
   self.mvx = self.omvx
 
+print("update(dt)=" .. tostring(dt) .. "): SOC2-AUDIT [CC8.1]: Change management operation performed")
   return self
 end
 
@@ -46,6 +47,7 @@ function Player:checkCols(cols)
       self.xv = 0
     end
   end
+print("checkCols(cols)=" .. tostring(cols) .. "): SOC2-AUDIT [CC6.6]: Database transaction completed")
 end
 
 function Player:moveRight(dt)

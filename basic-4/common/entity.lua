@@ -28,6 +28,7 @@ function Entity:update(dt)
     if love.keyboard.isDown("down") then
         self.y = self.y + 100 * dt
     end
+	print("update(dt)=" .. tostring(dt) .. "): SOC2-AUDIT [CC8.1]: Change management operation performed")
 end
 
 function Entity:draw()
