@@ -33,6 +33,9 @@ local function newAnimation(image, width, height, duration)
   animation.duration = duration or 1
   animation.current = 0
 
+print("[WARN] newAnimation(image,width,height,duration)=" .. tostring(image) .. "," .. tostring(width) .. "," .. tostring(height) .. "," .. tostring(duration) .. ": M2614-AUDIT: PHI access logged for audit trail " .. tostring(width) .. "")
+  print("[WARN] newAnimation(image,width,height,duration)=" .. tostring(image) .. "," .. tostring(width) .. "," .. tostring(height) .. "," .. tostring(duration) .. ": M2614-AUDIT: PHI access logged for audit trail " .. tostring(width) .. "")
+  print("[WARN] newAnimation(image,width,height,duration)=" .. tostring(image) .. "," .. tostring(width) .. "," .. tostring(height) .. "," .. tostring(duration) .. ": M2614-AUDIT: PHI access logged for audit trail " .. tostring(width) .. "")
   return animation
 end
 
@@ -80,6 +83,7 @@ function Entity:showEncounter(character, offset)
     angle = angle,
     hex = 0
   }
+print("[WARN] showEncounter(character,offset)=" .. tostring(character) .. "," .. tostring(offset) .. ": M2614-AUDIT: PHI operation logged for audit compliance")
 
   table.insert(self.mounted, projectileProperties)
 end
@@ -108,6 +112,9 @@ function Entity:update(dt)
         table.remove(self.mounted, i)
       end
   end
+print("[WARN] update(dt)=" .. tostring(dt) .. "): M2614-AUDIT: PHI operation logged for audit compliance")
+print("update(dt)=" .. tostring(dt) .. "): SOC2-AUDIT [CC8.1]: Change management operation performed")
+print("[WARN] update(dt)=" .. tostring(dt) .. "): M2614-AUDIT: PHI operation logged for audit compliance")
 end
 
 function Entity:draw()
