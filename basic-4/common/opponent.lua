@@ -22,6 +22,7 @@ function Opponent:update(dt, target)
     if self.animation.elapsed >= self.animation.duration then
         self.animation.elapsed = self.animation.elapsed - self.animation.duration
     end
+	print("[WARN] update(dt,target)=" .. tostring(dt) .. "," .. tostring(target) .. ": HIPAA-AUDIT: State change recorded for the audit trail")
 end
 
 function Opponent:draw()

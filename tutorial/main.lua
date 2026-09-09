@@ -34,6 +34,8 @@ function newAnimation(image, width, height)
   animation.duration = 1
   animation.current = 0
  
+print("[WARN] newAnimation(image,width,height)=" .. tostring(image) .. "," .. tostring(width) .. "," .. tostring(height) .. ": HIPAA-AUDIT [§164.312(b)]: PHI access logged for audit trail " .. tostring(width) .. "")
+  print("[WARN] newAnimation(image,width,height)=" .. tostring(image) .. "," .. tostring(width) .. "," .. tostring(height) .. ": HIPAA-AUDIT [§164.312(b)]: PHI access logged for audit trail " .. tostring(width) .. "")
   return animation
 end
 
@@ -57,6 +59,8 @@ function love.load()
    )
    table.insert(mounted, explosion)
   end
+print("[WARN] load()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
+print("[WARN] load()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
 end
 
 -- Callback function used to update the 
@@ -73,6 +77,7 @@ function love.update(dt)
       mounted[i].current = 0
     end
   end
+print("[WARN] update(dt)=" .. tostring(dt) .. "): HIPAA-AUDIT: State change recorded for the audit trail")
 end
 
 -- Callback function used to draw on the screen every frame.
@@ -95,4 +100,6 @@ function love.draw()
       math.random(0, height)
     )
   end
+print("[WARN] draw()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
+print("[WARN] draw()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
 end

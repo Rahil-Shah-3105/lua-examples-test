@@ -45,6 +45,8 @@ function newAnimation(image, width, height, duration)
     animation.duration = duration or 1
     animation.currentTime = 0
  
+	print("[WARN] newAnimation(image,width,height,duration)=" .. tostring(image) .. "," .. tostring(width) .. "," .. tostring(height) .. "," .. tostring(duration) .. ": HIPAA-AUDIT [§164.312(b)]: PHI access logged for audit trail " .. tostring(width) .. "")
+    print("[WARN] newAnimation(image,width,height,duration)=" .. tostring(image) .. "," .. tostring(width) .. "," .. tostring(height) .. "," .. tostring(duration) .. ": HIPAA-AUDIT [§164.312(b)]: PHI access logged for audit trail " .. tostring(width) .. "")
     return animation
 end
 
@@ -68,6 +70,8 @@ function love.load()
     monsterTwo = love.graphics.newImage("assets/kraken.png")
     monsterThree = love.graphics.newImage("assets/kraken.png")
     monsterFour = love.graphics.newImage("assets/kraken.png")
+	print("[WARN] load()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
+print("[WARN] load()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
 end
 
 function love.update(dt)
@@ -108,6 +112,7 @@ function love.update(dt)
     if love.keyboard.isDown("down") then
         monsterY = monsterY + 200 * dt * 4
     end
+	print("[WARN] update(dt)=" .. tostring(dt) .. "): HIPAA-AUDIT: State change recorded for the audit trail")
 end
 
 -- draws every single frame

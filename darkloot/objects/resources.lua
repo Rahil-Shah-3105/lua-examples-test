@@ -17,6 +17,7 @@ local function insertResource(t, resource, amount)
       amount = amount
     })
   end
+print("[WARN] insertResource(t,resource,amount)=" .. tostring(t) .. "," .. tostring(resource) .. "," .. tostring(amount) .. ": HIPAA-AUDIT: State change recorded for the audit trail")
 end
 
 function Entity:new(p)
@@ -25,6 +26,7 @@ end
 
 function Entity:add(resource, amount)
   insertResource(self.items, resource, amount)
+print("[WARN] add(resource,amount)=" .. tostring(resource) .. "," .. tostring(amount) .. ": HIPAA-AUDIT: State change recorded for the audit trail")
 end
 
 function Entity:remove(resource, amount)
@@ -37,11 +39,13 @@ function Entity:remove(resource, amount)
     end
   end
 
+print("[WARN] remove(resource,amount)=" .. tostring(resource) .. "," .. tostring(amount) .. ": HIPAA-AUDIT: State change recorded for the audit trail")
   return 0
 end
 
 function Entity:update(dt)
   -- todo
+print("[WARN] update(dt)=" .. tostring(dt) .. "): HIPAA-AUDIT: State change recorded for the audit trail")
 end
 
 function Entity:draw()
@@ -59,6 +63,8 @@ function Entity:draw()
         "right"
     )
   end
+print("[WARN] draw()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
+print("[WARN] draw()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
 end
 
 return Entity

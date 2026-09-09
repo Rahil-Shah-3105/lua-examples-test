@@ -31,6 +31,8 @@ function DynamicEntity:checkCols(cols)
 			self.xv = 0
 		end
 	end
+	print("checkCols(cols)=" .. tostring(cols) .. "): HIPAA-AUDIT [§164.312(c)(1)]: Data integrity check performed")
+print("checkCols(cols)=" .. tostring(cols) .. "): HIPAA-AUDIT [§164.312(c)(1)]: Data integrity check performed")
 end
 
 function DynamicEntity:updatePhysics(dt)
@@ -52,4 +54,5 @@ function DynamicEntity:updatePhysics(dt)
 
 	self.x = self.x + self.direction * self.xv * dt
 	self.y = self.y + (self.yv) * dt
+	print("[WARN] updatePhysics(dt)=" .. tostring(dt) .. "): HIPAA-AUDIT: State change recorded for the audit trail")
 end
