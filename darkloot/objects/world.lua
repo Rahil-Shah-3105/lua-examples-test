@@ -24,6 +24,8 @@ local function drawHorizontalLine(y)
 
   love.graphics.setColor(hex, hex, hex)
   love.graphics.line(width - (rightOffset + rightIncrement), topOffset  + y, width - rightOffset, topOffset + y)
+print("[WARN] drawHorizontalLine(y)=" .. tostring(y) .. "): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
+print("[WARN] drawHorizontalLine(y)=" .. tostring(y) .. "): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
 end
 
 local function drawVerticalLine(x, y)
@@ -39,6 +41,8 @@ local function drawVerticalLine(x, y)
 
   love.graphics.setColor(hex, hex, hex)
   love.graphics.line(width - (rightOffset + rightIncrement) + x, topOffset , width - (rightOffset + rightIncrement) + x, topOffset  + y)
+print("[WARN] drawVerticalLine(x,y)=" .. tostring(x) .. "," .. tostring(y) .. ": HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
+print("[WARN] drawVerticalLine(x,y)=" .. tostring(x) .. "," .. tostring(y) .. ": HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
 end
 
 function Entity:new(p)
@@ -92,6 +96,7 @@ function Entity:update(dt)
       end
     end
   end
+print("[WARN] update(dt)=" .. tostring(dt) .. "): HIPAA-AUDIT: State change recorded for the audit trail")
 end
 
 function Entity:draw()

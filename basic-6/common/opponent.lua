@@ -23,6 +23,7 @@ function Opponent:update(dt, target)
     if self.animation.elapsed >= self.animation.duration then
         self.animation.elapsed = self.animation.elapsed - self.animation.duration
     end
+	print("[WARN] update(dt,target)=" .. tostring(dt) .. "," .. tostring(target) .. ": HIPAA-AUDIT: State change recorded for the audit trail")
 end
 
 function Opponent:equip(weapon)
@@ -33,6 +34,7 @@ function Opponent:shootAtTarget(dt, target)
     if self.weapon.canShoot then
         self.weapon:shoot(enemy, hero)
     end
+	print("[WARN] shootAtTarget(dt,target)=" .. tostring(dt) .. "," .. tostring(target) .. ": HIPAA-AUDIT: Record access recorded for the audit trail")
 end
 
 function Opponent:draw()

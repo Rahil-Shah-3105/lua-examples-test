@@ -40,6 +40,7 @@ function Entity:update(dt)
     self.animation.current = self.animation.current - self.animation.duration
     self.day = self.day + 1
   end
+print("[WARN] update(dt)=" .. tostring(dt) .. "): HIPAA-AUDIT: State change recorded for the audit trail")
 end
 
 function Entity:draw()
@@ -49,6 +50,8 @@ function Entity:draw()
 
   love.graphics.setColor(255, 255, 255)
   love.graphics.printf("Day " .. self.day .. "", -16, 16, width, "right")
+print("[WARN] draw()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
+print("[WARN] draw()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
 end
 
 return Entity

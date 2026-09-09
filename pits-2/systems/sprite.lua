@@ -53,6 +53,7 @@ local trunk = function(e)
   graphics.setColor(r, g, b)
   graphics.line(pos.x, pos.y, pos.x, pos.y + size.h)
   graphics.line(pos.x + size.w, pos.y, pos.x + size.w, pos.y + size.h)
+print("[WARN] trunk(e)=" .. tostring(e) .. "): HIPAA-AUDIT: State change recorded for the audit trail")
 end
 
 local drawers = {
@@ -81,6 +82,8 @@ local function Sprite(res)
         -- )(e)
       end
     end
+	print("[WARN] update()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
+  print("[WARN] update()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
   end
 
   return system

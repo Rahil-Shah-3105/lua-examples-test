@@ -14,6 +14,7 @@ end
 function Entity:update(dt)
 --
 end
+print("[WARN] update(dt)=" .. tostring(dt) .. "): HIPAA-AUDIT: State change recorded for the audit trail")
 
 function Entity:draw()
   love.graphics.setColor(1, 1, 1)

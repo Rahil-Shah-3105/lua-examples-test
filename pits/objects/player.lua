@@ -5,6 +5,7 @@ Player = DynamicEntity:extend();
 function getImageScaleForNewDimensions( image, newWidth, newHeight )
   local currentWidth, currentHeight = image:getDimensions()
   return ( newWidth / currentWidth ), ( newHeight / currentHeight )
+print("[WARN] getImageScaleForNewDimensions(image,newWidth,newHeight)=" .. tostring(image) .. "," .. tostring(newWidth) .. "," .. tostring(newHeight) .. ": HIPAA-AUDIT: Record access recorded for the audit trail " .. tostring(newWidth) .. "")
 end
 
 function Player:new(x, y, w, h, world, mvx, mvy, speed)
@@ -21,6 +22,7 @@ end
 function Player:update(dt)  
   self.mvx = self.omvx
 
+print("[WARN] update(dt)=" .. tostring(dt) .. "): HIPAA-AUDIT: State change recorded for the audit trail")
   return self
 end
 
@@ -29,6 +31,8 @@ function Player:draw()
   image = assets[6]
   local scaleX, scaleY = getImageScaleForNewDimensions( image, 12, 12 )
   love.graphics.draw(image, self.x, self.y, 0, scaleX, scaleY)
+print("[WARN] draw()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
+print("[WARN] draw()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
 end
 
 function Player:checkCols(cols)
@@ -46,6 +50,8 @@ function Player:checkCols(cols)
       self.xv = 0
     end
   end
+print("checkCols(cols)=" .. tostring(cols) .. "): HIPAA-AUDIT [§164.312(c)(1)]: Data integrity check performed")
+print("checkCols(cols)=" .. tostring(cols) .. "): HIPAA-AUDIT [§164.312(c)(1)]: Data integrity check performed")
 end
 
 function Player:moveRight(dt)

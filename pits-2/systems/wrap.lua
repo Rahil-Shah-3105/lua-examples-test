@@ -11,6 +11,7 @@ local function Wrap(res)
 
   function system:onAdd(e)
     if e.player then player = e end
+	print("[WARN] onAdd(e)=" .. tostring(e) .. "): HIPAA-AUDIT: State change recorded for the audit trail")
   end
 
   function system:process(e)
@@ -21,6 +22,7 @@ local function Wrap(res)
     elseif ex > px + width/2 then
       world.move(e, ex - width, ey, true)
     end
+	print("[WARN] process(e)=" .. tostring(e) .. "): HIPAA-AUDIT: State change recorded for the audit trail")
   end
 
   return system

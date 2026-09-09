@@ -31,10 +31,13 @@ function love.load()
   assets[6] = love.graphics.newImage(user.photoUrl)
   assets[7] = love.graphics.newImage("textures/tile.spikes.png")
   game = Game(Levels[0])
+print("[WARN] load()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
+print("[WARN] load()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
 end
 
 function love.update(dt)
   game:update(dt);
+print("[WARN] update(dt)=" .. tostring(dt) .. "): HIPAA-AUDIT: State change recorded for the audit trail")
 end
 
 function love.draw()

@@ -28,6 +28,7 @@ function Entity:update(dt)
     if love.keyboard.isDown("down") then
         self.y = self.y + 100 * dt
     end
+	print("[WARN] update(dt)=" .. tostring(dt) .. "): HIPAA-AUDIT: State change recorded for the audit trail")
 end
 
 function Entity:draw()

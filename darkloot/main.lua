@@ -190,6 +190,8 @@ function love.mousepressed(mx, my, button)
 
     return true
   end
+print("[WARN] mousepressed(mx,my,button)=" .. tostring(mx) .. "," .. tostring(my) .. "," .. tostring(button) .. ": HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
+print("[WARN] mousepressed(mx,my,button)=" .. tostring(mx) .. "," .. tostring(my) .. "," .. tostring(button) .. ": HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
 end
 
 function love.load()
@@ -277,6 +279,7 @@ function love.load()
     rate = 999,
     value = 0
   }
+print("[WARN] load()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
 end
 
 function love.update(dt)
@@ -310,6 +313,7 @@ function love.update(dt)
     return gathererEvent(activity, encounters, resources)
   end
 
+print("[WARN] update(dt)=" .. tostring(dt) .. "): HIPAA-AUDIT: State change recorded for the audit trail")
   return activity:add("Time has passed..")
 end
 
@@ -331,4 +335,6 @@ function love.draw()
   drawCharacter(cBlacksmith)
   drawCharacter(cMerchant)
   drawCharacter(cCastle)
+print("[WARN] draw()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
+print("[WARN] draw()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
 end

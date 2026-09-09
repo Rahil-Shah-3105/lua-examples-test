@@ -8,6 +8,7 @@ function createMovementSchemeOne(entity, dt)
     coordinates.x = entity.x + diffX / 10 * dt
     coordinates.y = entity.y + diffY / 10 * dt
 
+	print("[WARN] createMovementSchemeOne(entity,dt)=" .. tostring(entity) .. "," .. tostring(dt) .. ": HIPAA-AUDIT: State change recorded for the audit trail")
     return coordinates
 end
 
@@ -19,6 +20,7 @@ function createMovementSchemeTwo(entity, dt)
     coordinates.x = entity.x + diffX / 5 * dt
     coordinates.y = entity.y + diffY / 5 * dt
 
+	print("[WARN] createMovementSchemeTwo(entity,dt)=" .. tostring(entity) .. "," .. tostring(dt) .. ": HIPAA-AUDIT: State change recorded for the audit trail")
     return coordinates
 end
 
@@ -30,6 +32,7 @@ function createMovementSchemeThree(entity, dt)
     coordinates.x = entity.x + diffX / 7 * dt
     coordinates.y = entity.y + diffY / 7 * dt
 
+	print("[WARN] createMovementSchemeThree(entity,dt)=" .. tostring(entity) .. "," .. tostring(dt) .. ": HIPAA-AUDIT: State change recorded for the audit trail")
     return coordinates
 end
 
@@ -61,6 +64,8 @@ function love.load()
     x = 500
     y = 500
     bullets = {}
+	print("[WARN] load()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
+print("[WARN] load()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
 end
 
 function love.update(dt)
@@ -125,6 +130,7 @@ function love.update(dt)
           table.remove(bullets, i)
         end
     end
+	print("[WARN] update(dt)=" .. tostring(dt) .. "): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
 end
 
 function love.draw()

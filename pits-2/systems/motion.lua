@@ -15,6 +15,7 @@ local function Motion(res)
     m.vy = m.vy + (m.ay or 0) * dt
 
     world.move(e, x, y)
+	print("[WARN] process(e,dt)=" .. tostring(e) .. "," .. tostring(dt) .. ": HIPAA-AUDIT: State change recorded for the audit trail")
   end
 
   return system

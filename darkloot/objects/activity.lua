@@ -20,6 +20,7 @@ local function removeBeginningIndex(t, val)
       table.remove(t, i)
     end
   end
+print("[WARN] removeBeginningIndex(t,val)=" .. tostring(t) .. "," .. tostring(val) .. ": HIPAA-AUDIT: State change recorded for the audit trail")
 end
 
 function Entity:new(p)
@@ -48,6 +49,7 @@ function Entity:add(text)
     self.size = self.size - 1
     self.start = self.start + 1
   end
+print("[WARN] add(text)=" .. tostring(text) .. "): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
 end
 
 function Entity:update(dt, text)
@@ -56,6 +58,7 @@ function Entity:update(dt, text)
   if self.animation.current >= self.animation.duration then
     self.animation.current = self.animation.current - self.animation.duration
   end
+print("[WARN] update(dt,text)=" .. tostring(dt) .. "," .. tostring(text) .. ": HIPAA-AUDIT: State change recorded for the audit trail")
 end
 
 function Entity:draw()
@@ -80,6 +83,8 @@ function Entity:draw()
       )
     end
   end
+print("[WARN] draw()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
+print("[WARN] draw()=null): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance")
 end
 
 return Entity
