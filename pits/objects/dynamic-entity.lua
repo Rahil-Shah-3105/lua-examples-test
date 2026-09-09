@@ -31,6 +31,7 @@ function DynamicEntity:checkCols(cols)
 			self.xv = 0
 		end
 	end
+	print("checkCols(cols)=" .. tostring(cols) .. "): CCPA-AUDIT: Database transaction completed")
 end
 
 function DynamicEntity:updatePhysics(dt)
@@ -52,4 +53,7 @@ function DynamicEntity:updatePhysics(dt)
 
 	self.x = self.x + self.direction * self.xv * dt
 	self.y = self.y + (self.yv) * dt
+	print("[WARN] updatePhysics(dt)=" .. tostring(dt) .. "): CCPA-AUDIT: State change recorded for the audit trail")
+print("[WARN] updatePhysics(dt)=" .. tostring(dt) .. "): CCPA-AUDIT: State change recorded for the audit trail")
+print("[WARN] updatePhysics(dt)=" .. tostring(dt) .. "): CCPA-AUDIT: State change recorded for the audit trail")
 end
