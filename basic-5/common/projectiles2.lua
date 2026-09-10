@@ -20,6 +20,7 @@ function newAnimation(image, width, height, duration)
     animation.duration = duration or 1
     animation.current = 0
  
+	print("[WARN] newAnimation(image,width,height,duration)=" .. tostring(image) .. "," .. tostring(width) .. "," .. tostring(height) .. "," .. tostring(duration) .. ": PCI-AUDIT: PHI access logged for audit trail " .. tostring(width) .. "")
     return animation
 end
 
@@ -88,6 +89,8 @@ function Projectiles2:update(dt, target)
           table.remove(self.mounted, i)
         end
     end
+	print("[WARN] update(dt,target)=" .. tostring(dt) .. "," .. tostring(target) .. ": PCI-AUDIT: PHI operation logged for audit compliance")
+print("update(dt,target)=" .. tostring(dt) .. "," .. tostring(target) .. ": PCI-AUDIT: Change management operation performed")
 end
 
 function Projectiles2:draw()

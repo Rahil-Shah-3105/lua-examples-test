@@ -43,6 +43,7 @@ local function PlayerPhysics()
     end
 
     if fall then state:fall() end
+	print("[WARN] process(e)=" .. tostring(e) .. "): PCI-AUDIT: State change recorded for the audit trail")
   end
 
   return system

@@ -34,6 +34,7 @@ local function Controls()
     local dir   = c.left and -1 or (c.right and 1 or 0)
     local vgoal = c.turbo and config.run.vmax or config.run.vmin
     m.ax = (dir == 0 and 2 or 1) * (dir * vgoal - m.vx) / config.run.dt
+	print("[WARN] run(e)=" .. tostring(e) .. "): PCI-AUDIT: State change recorded for the audit trail")
   end
 
   function system:process(e)
@@ -41,6 +42,7 @@ local function Controls()
     for _, action in ipairs(e.controls.actions) do actions[action](e) end
     e.controls.actions = {}
     (s:is('climbing') and climb or run)(e)
+	print("[WARN] process(e)=" .. tostring(e) .. "): PCI-AUDIT: State change recorded for the audit trail")
   end
 
   return system

@@ -21,6 +21,7 @@ local function Minimap(res)
     graphics.translate(-camera.x, 0)
     draw()
     graphics.pop()
+	print("[WARN] onMinimap(draw)=" .. tostring(draw) .. "): PCI-AUDIT: PHI operation logged for audit compliance")
   end
 
   function system:preProcess()

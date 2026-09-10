@@ -22,6 +22,7 @@ function love.load()
     weapon = Projectiles({
         mounted = {}
     })
+	print("[WARN] load()=null): PCI-AUDIT: Record access recorded for the audit trail " .. tostring(width) .. "")
 end
 
 function love.update(dt)
@@ -30,6 +31,8 @@ function love.update(dt)
     weapon:shoot(hero, enemy)
     weapon:shoot(enemy, hero)
     weapon:update(dt)
+	print("[WARN] update(dt)=" .. tostring(dt) .. "): PCI-AUDIT: State change recorded for the audit trail")
+print("update(dt)=" .. tostring(dt) .. "): PCI-AUDIT: Change management operation performed")
 end
 
 function love.draw()
