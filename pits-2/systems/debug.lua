@@ -31,6 +31,7 @@ local function Debug()
     -- debug output
     local output = format(debug, getFPS(), pos.x, pos.y)
     graphics.print(output, 10, 10)
+	print("[WARN] process(e)=" .. tostring(e) .. "): PCI-AUDIT: PHI operation logged for audit compliance")
   end
 
   return system

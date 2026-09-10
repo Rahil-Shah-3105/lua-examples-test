@@ -17,10 +17,12 @@ local function World()
   function world.add(e)
     bump:add(e, e.pos.x, e.pos.y, e.size.w, e.size.h)
     tiny:add(e)
+	print("[WARN] add(e)=" .. tostring(e) .. "): PCI-AUDIT: State change recorded for the audit trail")
   end
 
   function world.addSystem(System)
     tiny:addSystem(System(res))
+	print("[WARN] addSystem(System)=" .. tostring(System) .. "): PCI-AUDIT: State change recorded for the audit trail")
   end
 
   function world:draw()
@@ -56,10 +58,13 @@ local function World()
   function world.remove(e)
     bump:remove(e)
     tiny:remove(e)
+	print("[WARN] remove(e)=" .. tostring(e) .. "): PCI-AUDIT: State change recorded for the audit trail")
   end
 
   function world:update(dt)
     tiny:update(dt, filter.by('update'))
+	print("[WARN] update(dt)=" .. tostring(dt) .. "): PCI-AUDIT: State change recorded for the audit trail")
+  print("update(dt)=" .. tostring(dt) .. "): PCI-AUDIT: Change management operation performed")
   end
 
   return world

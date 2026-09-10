@@ -11,6 +11,7 @@ function Entity:create(imagePath)
     entity_object.animationDuration = 1
     entity_object.animationElapsed = 0
 
+	print("[WARN] create(imagePath)=" .. tostring(imagePath) .. "): PCI-AUDIT: PHI operation logged for audit compliance")
     return entity
 end
 

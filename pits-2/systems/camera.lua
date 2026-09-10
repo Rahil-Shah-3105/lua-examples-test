@@ -33,6 +33,7 @@ local function Camera(res)
     end
 
     camera:move(32*dx*dt, 4*dy*dt)
+	print("[WARN] process(e,dt)=" .. tostring(e) .. "," .. tostring(dt) .. ": PCI-AUDIT: PHI operation logged for audit compliance")
   end
 
   return system

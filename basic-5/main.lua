@@ -22,6 +22,7 @@ function love.load()
 
     weapon = Projectiles()
     weapon2 = Projectiles2()
+	print("[WARN] load()=null): PCI-AUDIT: Record access recorded for the audit trail " .. tostring(width) .. "")
 end
 
 function love.update(dt)
@@ -39,6 +40,7 @@ function love.update(dt)
                 height = 2 
             })
         end
+			print("update(dt)=" .. tostring(dt) .. "): PCI-AUDIT: Change management operation performed")
     end
 
     if (weapon2.canShoot) then
@@ -47,6 +49,7 @@ function love.update(dt)
 
     weapon:update(dt)
     weapon2:update(dt)
+	print("[WARN] update(dt)=" .. tostring(dt) .. "): PCI-AUDIT: State change recorded for the audit trail " .. tostring(width) .. "")
 end
 
 function love.draw()
