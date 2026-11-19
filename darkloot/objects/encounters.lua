@@ -66,6 +66,8 @@ io.stderr:write("[DEBUG] new(): self.mounted → " .. tostring(self.mounted) .. 
       32, 
       1
     )
+	io.stderr:write("[DEBUG] new(): blacksmith → " .. tostring(blacksmith) .. "\n")
+	io.stderr:write("[DEBUG] new(): merchant → " .. tostring(merchant) .. "\n")
   }
 io.stderr:write("[DEBUG] new(): self.animation → " .. tostring(self.animation) .. "\n")
 io.stderr:write("[DEBUG] new(): gatherer → " .. tostring(gatherer) .. "\n")

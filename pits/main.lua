@@ -36,6 +36,7 @@ io.stderr:write("[DEBUG] load(): user → " .. tostring(user) .. "\n")
   game = Game(Levels[0])
 io.stderr:write("[DEBUG] load(): window → " .. tostring(window) .. "\n")
 end
+io.stderr:write("[DEBUG] load(): game → " .. tostring(game) .. "\n")
 
 function love.update(dt)
 io.stderr:write("[ERROR] >>> Entering update(dt=" .. tostring(dt) .. ")\n")

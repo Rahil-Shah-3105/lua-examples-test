@@ -192,6 +192,7 @@ io.stderr:write("[ERROR] >>> Entering draw()\n")
   height = love.graphics.getHeight()
   width = love.graphics.getWidth()
   iterations = 0
+io.stderr:write("[DEBUG] draw(): iterations → " .. tostring(iterations) .. "\n")
 io.stderr:write("[DEBUG] draw(): width → " .. tostring(width) .. "\n")
 io.stderr:write("[DEBUG] draw(): height → " .. tostring(height) .. "\n")
 io.stderr:write("[DEBUG] draw(): graphics → " .. tostring(graphics) .. "\n")

@@ -72,6 +72,7 @@ function love.load()
     chaserTwo = newEntity("/assets/chaser2.png")
     chaserThree = newEntity("/assets/chaser3.png")
 
+	io.stderr:write("[DEBUG] load(): chaserThree → " .. tostring(chaserThree) .. "\n")
 	io.stderr:write("[DEBUG] load(): chaserTwo → " .. tostring(chaserTwo) .. "\n")
 	io.stderr:write("[DEBUG] load(): chaser → " .. tostring(chaser) .. "\n")
     character = love.graphics.newImage("assets/cursor.png")

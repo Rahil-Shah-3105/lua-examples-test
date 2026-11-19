@@ -13,7 +13,9 @@ local topOffset = 16
 
 local function drawHorizontalLine(y)
   width = love.graphics.getWidth()
+io.stderr:write("[DEBUG] drawHorizontalLine(y=" .. tostring(y) .. "): width → " .. tostring(width) .. "\n")
   height = love.graphics.getHeight()
+io.stderr:write("[DEBUG] drawHorizontalLine(y=" .. tostring(y) .. "): height → " .. tostring(height) .. "\n")
 
 io.stderr:write("[ERROR] >>> Entering drawHorizontalLine(y=" .. tostring(y) .. ")\n")
   unit = lineAnimationUnit
@@ -33,7 +35,9 @@ end
 
 local function drawVerticalLine(x, y)
   width = love.graphics.getWidth()
+io.stderr:write("[DEBUG] drawVerticalLine(x=" .. tostring(x) .. ",y=" .. tostring(y) .. "): width → " .. tostring(width) .. "\n")
   height = love.graphics.getHeight()
+io.stderr:write("[DEBUG] drawVerticalLine(x=" .. tostring(x) .. ",y=" .. tostring(y) .. "): height → " .. tostring(height) .. "\n")
 
 io.stderr:write("[ERROR] >>> Entering drawVerticalLine(x=" .. tostring(x) .. ",y=" .. tostring(y) .. ")\n")
   unit = lineAnimationUnit
