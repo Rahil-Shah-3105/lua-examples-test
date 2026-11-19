@@ -10,16 +10,23 @@ local GRAVITY = 14.8
 local level = 0
 
 function Game:new(nextLevel)
+io.stderr:write("[ERROR] >>> Entering new(nextLevel=" .. tostring(nextLevel) .. ")\n")
   self.entities = {}
   self.debug = {}
+io.stderr:write("[DEBUG] new(nextLevel=" .. tostring(nextLevel) .. "): self.debug → " .. tostring(self.debug) .. "\n")
+io.stderr:write("[DEBUG] new(nextLevel=" .. tostring(nextLevel) .. "): self.entities → " .. tostring(self.entities) .. "\n")
   self.player = {};
+io.stderr:write("[DEBUG] new(nextLevel=" .. tostring(nextLevel) .. "): self.player → " .. tostring(self.player) .. "\n")
 
   self:loadLevel(nextLevel);
+io.stderr:write("[WARN] <<< Exiting new(nextLevel=" .. tostring(nextLevel) .. ")\n")
 end
 
 function Game:setupPhysics()
+io.stderr:write("[ERROR] >>> Entering setupPhysics()\n")
   self.world = bump.newWorld()
   self.world.gravity = GRAVITY
+io.stderr:write("[WARN] <<< Exiting setupPhysics()\n")
 end
 
 function Game:loadLevel(world)
@@ -64,6 +71,7 @@ function Game:loadLevel(world)
         local x = 32 * (i2 - 1)
         local y = love.graphics.getHeight() - (32 * base)
 
+		io.stderr:write("[ERROR] >>> Entering loadLevel(world=" .. tostring(world) .. ")\n")
         local p = MovingPlatform({
           x = x,
           y = y,
@@ -72,7 +80,9 @@ function Game:loadLevel(world)
           direction = 1
         })
 
+		io.stderr:write("[DEBUG] loadLevel(world=" .. tostring(world) .. "): self.entities → " .. tostring(self.entities) .. "\n")
         self.world:add(p, x, y, 32, 32)
+		io.stderr:write("[WARN] <<< Exiting loadLevel(world=" .. tostring(world) .. ")\n")
         table.insert(self.entities, p)
       end
 
@@ -140,6 +150,7 @@ function Game:loadLevel(world)
           name = 'SPIKES'
         })
 
+		io.stderr:write("[DEBUG] loadLevel(world=" .. tostring(world) .. "): name → " .. tostring(name) .. "\n")
         self.world:add(p, x, y, 16, 16)
         table.insert(self.entities, p)
       end
@@ -169,14 +180,17 @@ function Game:loadLevel(world)
 end
 
 function Game:checkCols(entity, cols)
+io.stderr:write("[ERROR] >>> Entering checkCols(entity=" .. tostring(entity) .. ",cols=" .. tostring(cols) .. ")\n")
   local this = entity.name;
   
   entity.grounded = false
+io.stderr:write("[DEBUG] checkCols(entity=" .. tostring(entity) .. ",cols=" .. tostring(cols) .. "): entity.grounded → " .. tostring(entity.grounded) .. "\n")
   for i,v in ipairs (cols) do
     local other = cols[i].other.name
 
     if this == "PLAYER" and other == "FINISH" then
       level = level + 1
+	io.stderr:write("[DEBUG] checkCols(entity=" .. tostring(entity) .. ",cols=" .. tostring(cols) .. "): level → " .. tostring(level) .. "\n")
       self:loadLevel(Levels[level])
     end
 
@@ -193,19 +207,24 @@ function Game:checkCols(entity, cols)
 
     if cols[i].normal.y == -1 then
       entity.yv = 0
+	io.stderr:write("[DEBUG] checkCols(entity=" .. tostring(entity) .. ",cols=" .. tostring(cols) .. "): entity.yv → " .. tostring(entity.yv) .. "\n")
       entity.grounded = true
     elseif cols[i].normal.y == 1 then
       entity.yv = -entity.yv / 4
       entity.dropping = 20
+	io.stderr:write("[DEBUG] checkCols(entity=" .. tostring(entity) .. ",cols=" .. tostring(cols) .. "): entity.dropping → " .. tostring(entity.dropping) .. "\n")
     end
 
     if cols[i].normal.x ~= 0 then
       entity.xv = 0
+	io.stderr:write("[DEBUG] checkCols(entity=" .. tostring(entity) .. ",cols=" .. tostring(cols) .. "): entity.xv → " .. tostring(entity.xv) .. "\n")
     end
   end
+io.stderr:write("[WARN] <<< Exiting checkCols(entity=" .. tostring(entity) .. ",cols=" .. tostring(cols) .. ")\n")
 end
 
 function Game:update(dt)
+io.stderr:write("[ERROR] >>> Entering update(dt=" .. tostring(dt) .. ")\n")
   self:manageKeyboard(dt)
 
   for i = 1, #self.entities do
@@ -226,7 +245,9 @@ function Game:update(dt)
 
   state = self.player:update(dt)
   if state.y > love.graphics.getHeight() then
+io.stderr:write("[DEBUG] update(dt=" .. tostring(dt) .. "): state → " .. tostring(state) .. "\n")
     level = level - 1
+	io.stderr:write("[DEBUG] update(dt=" .. tostring(dt) .. "): level → " .. tostring(level) .. "\n")
 
     if level < 0 then
       level = 0
@@ -234,9 +255,11 @@ function Game:update(dt)
 
     self:loadLevel(Levels[level])
   end
+io.stderr:write("[WARN] <<< Exiting update(dt=" .. tostring(dt) .. ")\n")
 end
 
 function Game:manageKeyboard(dt)
+io.stderr:write("[ERROR] >>> Entering manageKeyboard(dt=" .. tostring(dt) .. ")\n")
   if love.keyboard.isDown("space") then
     self.player:jump(dt)
   end
@@ -260,14 +283,19 @@ function Game:manageKeyboard(dt)
   elseif love.keyboard.isDown("a") then
     self.player:moveLeft(dt);
   end
+io.stderr:write("[WARN] <<< Exiting manageKeyboard(dt=" .. tostring(dt) .. ")\n")
 end
 
 function Game:draw()
+io.stderr:write("[ERROR] >>> Entering draw()\n")
   love.graphics.setColor(1, 1, 1)
 
+io.stderr:write("[DEBUG] draw(): graphics → " .. tostring(graphics) .. "\n")
   debug = " "
+io.stderr:write("[DEBUG] draw(): debug → " .. tostring(debug) .. "\n")
   
   for i = 1, #self.entities do
     self.entities[i]:draw()
   end
+io.stderr:write("[WARN] <<< Exiting draw()\n")
 end

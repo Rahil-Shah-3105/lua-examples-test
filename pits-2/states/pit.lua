@@ -11,7 +11,9 @@ local tile = config.tile
 local function Pit()
   local world = World()
 
+io.stderr:write("[ERROR] >>> Entering Pit()\n")
   function world.entities()
+	io.stderr:write("[ERROR] >>> Entering entities()\n")
     local ys = floor()
     local player = Player({ x = -tile.w, y = -tile.h })
 
@@ -21,9 +23,11 @@ local function Pit()
     })
 
     print(string.format('ents: %s', #ents))
+	io.stderr:write("[WARN] <<< Exiting entities()\n")
     return ents
   end
 
+io.stderr:write("[WARN] <<< Exiting Pit()\n")
   return world
 end
 

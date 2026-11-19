@@ -29,9 +29,12 @@ deserunt mollit anim id est laborum.
 ]]
 
 function newAnimation(image, width, height, duration)
+	io.stderr:write("[ERROR] >>> Entering newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ",duration=" .. tostring(duration) .. ")\n")
     local animation = {}
     animation.spriteSheet = image;
+	io.stderr:write("[DEBUG] newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ",duration=" .. tostring(duration) .. "): animation.spriteSheet → " .. tostring(animation.spriteSheet) .. "\n")
     animation.quads = {};
+	io.stderr:write("[DEBUG] newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ",duration=" .. tostring(duration) .. "): animation.quads → " .. tostring(animation.quads) .. "\n")
 
     local y = 0
     local x = 0
@@ -43,40 +46,51 @@ function newAnimation(image, width, height, duration)
     end
  
     animation.duration = duration or 1
+	io.stderr:write("[DEBUG] newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ",duration=" .. tostring(duration) .. "): animation.duration → " .. tostring(animation.duration) .. "\n")
     animation.currentTime = 0
+	io.stderr:write("[DEBUG] newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ",duration=" .. tostring(duration) .. "): animation.currentTime → " .. tostring(animation.currentTime) .. "\n")
  
+	io.stderr:write("[WARN] <<< Exiting newAnimation(image=" .. tostring(image) .. ",width=" .. tostring(width) .. ",height=" .. tostring(height) .. ",duration=" .. tostring(duration) .. ")\n")
     return animation
 end
 
 function love.load()
+	io.stderr:write("[ERROR] >>> Entering load()\n")
     love.mouse.setVisible(true);
 
+	io.stderr:write("[DEBUG] load(): mouse → " .. tostring(mouse) .. "\n")
     -- not sure what font this picks, must be some library thing.
     -- love.graphics.setFont(love.graphics.newFont(11))
     local f = love.graphics.newFont("assets/MaisonNeue-Bold.ttf")
     love.graphics.setFont(f)
 
+	io.stderr:write("[DEBUG] load(): graphics → " .. tostring(graphics) .. "\n")
     -- loader
     cursor = love.mouse.newCursor(love.image.newImageData("assets/cursor.png"), 0, 0)
     love.mouse.setCursor( cursor )
 
+	io.stderr:write("[DEBUG] load(): cursor → " .. tostring(cursor) .. "\n")
     -- animation
     animation = newAnimation(love.graphics.newImage("assets/anim-boogie.png"), 32, 32, 1)
     animationTwo = newAnimation(love.graphics.newImage("assets/anim-boogie.png"), 32, 32, 1)
 
+	io.stderr:write("[DEBUG] load(): animation → " .. tostring(animation) .. "\n")
     monster = love.graphics.newImage("assets/kraken.png")
     monsterTwo = love.graphics.newImage("assets/kraken.png")
     monsterThree = love.graphics.newImage("assets/kraken.png")
     monsterFour = love.graphics.newImage("assets/kraken.png")
+	io.stderr:write("[DEBUG] load(): monster → " .. tostring(monster) .. "\n")
 end
 
 function love.update(dt)
+	io.stderr:write("[ERROR] >>> Entering update(dt=" .. tostring(dt) .. ")\n")
     -- I don't see the need for a timer yet but maybe someone can explain.
     -- love.timer.sleep(0.01)
 
     -- kinda lame management here
     animation.currentTime = animation.currentTime + dt
     animationTwo.currentTime = animationTwo.currentTime + dt
+	io.stderr:write("[DEBUG] update(dt=" .. tostring(dt) .. "): animationTwo.currentTime → " .. tostring(animationTwo.currentTime) .. "\n")
 
     if animation.currentTime >= animation.duration then
         animation.currentTime = animation.currentTime - animation.duration
@@ -88,13 +102,16 @@ function love.update(dt)
 
     monsterTwoAngle = (monsterTwoAngle + dt) % (2 * math.pi)
     monsterTwoX, monsterTwoY = 400 + math.cos(monsterTwoAngle)*100, 300 + math.sin(monsterTwoAngle)*100
+	io.stderr:write("[DEBUG] update(dt=" .. tostring(dt) .. "): monsterTwoAngle → " .. tostring(monsterTwoAngle) .. "\n")
 
     monsterFourAngle = monsterFourAngle + dt
+	io.stderr:write("[DEBUG] update(dt=" .. tostring(dt) .. "): monsterFourAngle → " .. tostring(monsterFourAngle) .. "\n")
     monsterFourX, monsterFourY = 400 + math.cos(monsterFourAngle)*100, 300 + math.sin(monsterFourAngle)*100
 
 
     if love.keyboard.isDown("left") then
         monsterX = monsterX - 200 * dt * 4
+		io.stderr:write("[DEBUG] update(dt=" .. tostring(dt) .. "): monsterX → " .. tostring(monsterX) .. "\n")
     end
 
     if love.keyboard.isDown("right") then
@@ -103,11 +120,13 @@ function love.update(dt)
 
     if love.keyboard.isDown("up") then
         monsterY = monsterY - 200 * dt * 4
+		io.stderr:write("[DEBUG] update(dt=" .. tostring(dt) .. "): monsterY → " .. tostring(monsterY) .. "\n")
     end
 
     if love.keyboard.isDown("down") then
         monsterY = monsterY + 200 * dt * 4
     end
+	io.stderr:write("[WARN] <<< Exiting update(dt=" .. tostring(dt) .. ")\n")
 end
 
 -- draws every single frame
@@ -153,20 +172,24 @@ function love.draw()
 
     love.graphics.draw(monsterTwo, monsterTwoX, monsterTwoY, monsterTwoAngle)
 
+	io.stderr:write("[ERROR] >>> Entering draw()\n")
     love.graphics.draw(monsterThree, x, y)
 
     local monsterFourROT = monsterFourAngle * 180 / math.pi
     local monsterFourSX = math.cos(monsterFourAngle) * 3
     local monsterFourSY = math.sin(monsterFourAngle) * 2
     love.graphics.draw(monsterFour, monsterFourX, monsterFourY, monsterFourROT, monsterFourSX, monsterFourSY, 254, 126)
+	io.stderr:write("[WARN] <<< Exiting draw()\n")
 end
 
 -- press a key to move the mouse to some random point
 function love.keypressed(k) 
+	io.stderr:write("[ERROR] >>> Entering keypressed(k=" .. tostring(k) .. ")\n")
     if k == "v" then
         if love.mouse.isVisible() then
             love.mouse.setVisible(false)
         else
+			io.stderr:write("[DEBUG] keypressed(k=" .. tostring(k) .. "): mouse → " .. tostring(mouse) .. "\n")
             love.mouse.setVisible(true)
         end
     end
@@ -178,4 +201,5 @@ function love.keypressed(k)
         -- ensures weird monster cursor
         love.mouse.setCursor( cursor )
     end
+	io.stderr:write("[WARN] <<< Exiting keypressed(k=" .. tostring(k) .. ")\n")
 end

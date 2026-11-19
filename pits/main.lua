@@ -15,12 +15,15 @@ local game
 assets = {}
 
 function love.load()
+io.stderr:write("[ERROR] >>> Entering load()\n")
   trackOne = love.audio.newSource("microlith.mp3", "stream")
   trackOne:setLooping(true)
   love.audio.play(trackOne)
 
+io.stderr:write("[DEBUG] load(): trackOne → " .. tostring(trackOne) .. "\n")
   user = castle.user.getMe()
 
+io.stderr:write("[DEBUG] load(): user → " .. tostring(user) .. "\n")
   love.window.setMode(love.graphics.getWidth(), love.graphics.getHeight()) 
   assets[0] = love.graphics.newImage("textures/tile.default.png")
   assets[1] = love.graphics.newImage("textures/tile.exit.png")
@@ -31,20 +34,29 @@ function love.load()
   assets[6] = love.graphics.newImage(user.photoUrl)
   assets[7] = love.graphics.newImage("textures/tile.spikes.png")
   game = Game(Levels[0])
+io.stderr:write("[DEBUG] load(): window → " .. tostring(window) .. "\n")
 end
 
 function love.update(dt)
+io.stderr:write("[ERROR] >>> Entering update(dt=" .. tostring(dt) .. ")\n")
   game:update(dt);
+io.stderr:write("[WARN] <<< Exiting update(dt=" .. tostring(dt) .. ")\n")
 end
 
 function love.draw()
+io.stderr:write("[ERROR] >>> Entering draw()\n")
   game:draw(dt);
+io.stderr:write("[WARN] <<< Exiting draw()\n")
 end
 
 function love.mousepressed(x, y, button)
+	io.stderr:write("[ERROR] >>> Entering mousepressed(x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",button=" .. tostring(button) .. ")\n")
 	-- game:loadLevel(DEFAULT_WORLD);
+	io.stderr:write("[WARN] <<< Exiting mousepressed(x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",button=" .. tostring(button) .. ")\n")
 end
 
 function love.resize(w, h)
+	io.stderr:write("[ERROR] >>> Entering resize(w=" .. tostring(w) .. ",h=" .. tostring(h) .. ")\n")
 	--
+	io.stderr:write("[WARN] <<< Exiting resize(w=" .. tostring(w) .. ",h=" .. tostring(h) .. ")\n")
 end

@@ -6,10 +6,13 @@ local tile, window = config.tile, config.camera.window
 
 local function Camera(res)
   local camera, world = res.camera, res.world
+io.stderr:write("[ERROR] >>> Entering Camera(res=" .. tostring(res) .. ")\n")
   local system  = tiny.processingSystem({ update = true })
   system.filter = tiny.requireAll('camera')
 
+io.stderr:write("[WARN] <<< Exiting Camera(res=" .. tostring(res) .. ")\n")
   function system:process(e, dt)
+	io.stderr:write("[ERROR] >>> Entering process(e=" .. tostring(e) .. ",dt=" .. tostring(dt) .. ")\n")
     local pos, size, state = e.pos, e.size, e.state
 
     local dx = pos.x + size.w/2 - camera.x
@@ -33,6 +36,7 @@ local function Camera(res)
     end
 
     camera:move(32*dx*dt, 4*dy*dt)
+	io.stderr:write("[WARN] <<< Exiting process(e=" .. tostring(e) .. ",dt=" .. tostring(dt) .. ")\n")
   end
 
   return system

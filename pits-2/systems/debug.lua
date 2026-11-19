@@ -16,11 +16,14 @@ local function Debug()
   local system  = tiny.processingSystem({ hud = true })
   system.filter = tiny.requireAll('player')
   system.active = true
+io.stderr:write("[ERROR] >>> Entering Debug()\n")
 
   function system:process(e)
+	io.stderr:write("[ERROR] >>> Entering process(e=" .. tostring(e) .. ")\n")
     local pos = e.pos
     graphics.setColor(255, 255, 255, 150)
 
+	io.stderr:write("[DEBUG] process(e=" .. tostring(e) .. "): graphics → " .. tostring(graphics) .. "\n")
     -- camera window
     local cx, cy = love.graphics:getWidth()/2, love.graphics.getHeight()/2
     local t, b = cy - 2*h/3, cy + h/3
@@ -31,6 +34,7 @@ local function Debug()
     -- debug output
     local output = format(debug, getFPS(), pos.x, pos.y)
     graphics.print(output, 10, 10)
+	io.stderr:write("[WARN] <<< Exiting process(e=" .. tostring(e) .. ")\n")
   end
 
   return system

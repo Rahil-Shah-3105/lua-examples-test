@@ -88,6 +88,7 @@ local cost = {
 
 local function insertItem(t, item)
   table.insert(t, {
+io.stderr:write("[ERROR] >>> Entering insertItem(t=" .. tostring(t) .. ",item=" .. tostring(item) .. ")\n")
     id = item.id,
     index = item.index,
     name = item.name,
@@ -99,43 +100,59 @@ local function insertItem(t, item)
     rarity = item.rarity
   })
 
+io.stderr:write("[WARN] <<< Exiting insertItem(t=" .. tostring(t) .. ",item=" .. tostring(item) .. ")\n")
   return item
 end
 
 function Entity:new(p)
+io.stderr:write("[ERROR] >>> Entering new(p=" .. tostring(p) .. ")\n")
   self.items = p.items
   self.max = 20
+io.stderr:write("[DEBUG] new(p=" .. tostring(p) .. "): self.max → " .. tostring(self.max) .. "\n")
   self.count = 0
+io.stderr:write("[DEBUG] new(p=" .. tostring(p) .. "): self.count → " .. tostring(self.count) .. "\n")
+io.stderr:write("[DEBUG] new(p=" .. tostring(p) .. "): self.items → " .. tostring(self.items) .. "\n")
+io.stderr:write("[WARN] <<< Exiting new(p=" .. tostring(p) .. ")\n")
 end
 
 function Entity:upgrade(max)
+io.stderr:write("[ERROR] >>> Entering upgrade(max=" .. tostring(max) .. ")\n")
   self.max = self.max + max
+io.stderr:write("[DEBUG] upgrade(max=" .. tostring(max) .. "): self.max → " .. tostring(self.max) .. "\n")
+io.stderr:write("[WARN] <<< Exiting upgrade(max=" .. tostring(max) .. ")\n")
 end
 
 function Entity:dump()
+io.stderr:write("[ERROR] >>> Entering dump()\n")
   local money = 0
 
   for i, item in ipairs (self.items) do
     money = money + item.value
     table.remove(self.items, i)
     self.count = self.count - 1
+	io.stderr:write("[DEBUG] dump(): self.count → " .. tostring(self.count) .. "\n")
   end
 
+io.stderr:write("[WARN] <<< Exiting dump()\n")
   return money
 end
 
 function Entity:create(resources)
+io.stderr:write("[ERROR] >>> Entering create(resources=" .. tostring(resources) .. ")\n")
   if self.count >= self.max then
     return false
   end
 
   choice = materialChoices[math.random(1, 4)]
+io.stderr:write("[DEBUG] create(resources=" .. tostring(resources) .. "): choice → " .. tostring(choice) .. "\n")
   item = equipmentChoices[math.random(1, 2)]
+io.stderr:write("[DEBUG] create(resources=" .. tostring(resources) .. "): item → " .. tostring(item) .. "\n")
 
   result = resources:remove(choice, cost[item])
 
   if result >= cost[item] then
     creation = equipment[item][choice]
+	io.stderr:write("[DEBUG] create(resources=" .. tostring(resources) .. "): creation → " .. tostring(creation) .. "\n")
     createdItem = insertItem(self.items, {
       id = inventoryId,
       index = inventoryCount + 1,
@@ -147,26 +164,37 @@ function Entity:create(resources)
       rarity = creation.rarity
     })
 
+	io.stderr:write("[DEBUG] create(resources=" .. tostring(resources) .. "): createdItem → " .. tostring(createdItem) .. "\n")
     self.count = self.count + 1
+	io.stderr:write("[DEBUG] create(resources=" .. tostring(resources) .. "): self.count → " .. tostring(self.count) .. "\n")
     inventoryId = inventoryId + 1
+	io.stderr:write("[DEBUG] create(resources=" .. tostring(resources) .. "): inventoryId → " .. tostring(inventoryId) .. "\n")
     inventoryCount = inventoryCount + 1
+	io.stderr:write("[DEBUG] create(resources=" .. tostring(resources) .. "): inventoryCount → " .. tostring(inventoryCount) .. "\n")
     return "" .. createdItem.name ..
            " " .. createdItem.base ..
            "d" .. createdItem.sides ..
            "+" .. createdItem.modifier .. ""
   end
 
+io.stderr:write("[WARN] <<< Exiting create(resources=" .. tostring(resources) .. ")\n")
   return false
 end
 
 function Entity:update(dt)
+io.stderr:write("[ERROR] >>> Entering update(dt=" .. tostring(dt) .. ")\n")
   -- todo
+io.stderr:write("[WARN] <<< Exiting update(dt=" .. tostring(dt) .. ")\n")
 end
 
 function Entity:draw()
+io.stderr:write("[ERROR] >>> Entering draw()\n")
   height = love.graphics.getHeight()
   width = love.graphics.getWidth()
   iterations = 0
+io.stderr:write("[DEBUG] draw(): width → " .. tostring(width) .. "\n")
+io.stderr:write("[DEBUG] draw(): height → " .. tostring(height) .. "\n")
+io.stderr:write("[DEBUG] draw(): graphics → " .. tostring(graphics) .. "\n")
 
   love.graphics.setColor(255, 255, 255)
   love.graphics.printf(
@@ -190,6 +218,7 @@ function Entity:draw()
         "right"
     )
   end
+io.stderr:write("[WARN] <<< Exiting draw()\n")
 end
 
 return Entity

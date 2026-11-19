@@ -12,17 +12,25 @@ local duration = 0.11
 
 local function upgradeEntity(entity)
   entity.exp = entity.exp + 50
+io.stderr:write("[ERROR] >>> Entering upgradeEntity(entity=" .. tostring(entity) .. ")\n")
 
+io.stderr:write("[DEBUG] upgradeEntity(entity=" .. tostring(entity) .. "): entity.exp → " .. tostring(entity.exp) .. "\n")
   -- level up
   if entity.exp >= entity.nextExp then
     entity.nextExp = entity.nextExp * 2
+	io.stderr:write("[DEBUG] upgradeEntity(entity=" .. tostring(entity) .. "): entity.nextExp → " .. tostring(entity.nextExp) .. "\n")
     entity.level = entity.level + 1
+	io.stderr:write("[DEBUG] upgradeEntity(entity=" .. tostring(entity) .. "): entity.level → " .. tostring(entity.level) .. "\n")
     entity.rate = entity.rate - 20
+	io.stderr:write("[DEBUG] upgradeEntity(entity=" .. tostring(entity) .. "): entity.rate → " .. tostring(entity.rate) .. "\n")
     entity.cost = entity.cost + 25
+	io.stderr:write("[DEBUG] upgradeEntity(entity=" .. tostring(entity) .. "): entity.cost → " .. tostring(entity.cost) .. "\n")
     entity.value = entity.value + 5
+	io.stderr:write("[DEBUG] upgradeEntity(entity=" .. tostring(entity) .. "): entity.value → " .. tostring(entity.value) .. "\n")
     return true
   end
 
+io.stderr:write("[WARN] <<< Exiting upgradeEntity(entity=" .. tostring(entity) .. ")\n")
   return false
 end
 
@@ -36,6 +44,7 @@ local function drawCharacter(c, name)
     c.coords.x + 60,
     height + 24 - c.coords.y,
     width
+io.stderr:write("[ERROR] >>> Entering drawCharacter(c=" .. tostring(c) .. ",name=" .. tostring(name) .. ")\n")
   )
   love.graphics.printf(
     "EXP  " .. c.exp .. "",
@@ -49,11 +58,13 @@ local function drawCharacter(c, name)
     height + 48 - c.coords.y,
     width
   )
+io.stderr:write("[WARN] <<< Exiting drawCharacter(c=" .. tostring(c) .. ",name=" .. tostring(name) .. ")\n")
 end
 
 local function randomSelectResource()
   eventValue = math.random(1, 26)
 
+io.stderr:write("[ERROR] >>> Entering randomSelectResource()\n")
   local result = ({
     [1]="copper",
     [2]="copper",
@@ -83,6 +94,7 @@ local function randomSelectResource()
     [26]="iron"
   })[eventValue];
 
+io.stderr:write("[WARN] <<< Exiting randomSelectResource()\n")
   return result
 end
 
@@ -90,6 +102,7 @@ local function merchantEvent(activity, encounters, viewer)
   activity:add("Merchant: I came to bring your stock to the king.")
   sellEvent = viewer:sell(inventory, cMerchant.value)
 
+io.stderr:write("[ERROR] >>> Entering merchantEvent(activity=" .. tostring(activity) .. ",encounters=" .. tostring(encounters) .. ",viewer=" .. tostring(viewer) .. ")\n")
   if sellEvent == false then
     activity:add("Merchant: I came to bring your stock to the king, but you have nothing for sale.")
   end
@@ -98,12 +111,14 @@ local function merchantEvent(activity, encounters, viewer)
   end
 
   encounters:showEncounter('merchant', 135)
+io.stderr:write("[WARN] <<< Exiting merchantEvent(activity=" .. tostring(activity) .. ",encounters=" .. tostring(encounters) .. ",viewer=" .. tostring(viewer) .. ")\n")
 end
 
 local function blacksmithEvent(activity, encounters, inventory)
   activity:add("Blacksmith: I tried to create something.")
   createEvent = inventory:create(resources)
   if createEvent == false then
+io.stderr:write("[ERROR] >>> Entering blacksmithEvent(activity=" .. tostring(activity) .. ",encounters=" .. tostring(encounters) .. ",inventory=" .. tostring(inventory) .. ")\n")
     activity:add("Blacksmith: I failed to create an item.")
   end
   if createEvent ~= false then
@@ -111,6 +126,7 @@ local function blacksmithEvent(activity, encounters, inventory)
   end
 
   encounters:showEncounter('blacksmith', 86)
+io.stderr:write("[WARN] <<< Exiting blacksmithEvent(activity=" .. tostring(activity) .. ",encounters=" .. tostring(encounters) .. ",inventory=" .. tostring(inventory) .. ")\n")
 end
 
 local function gathererEvent(activity, encounters, resources)
@@ -118,6 +134,8 @@ local function gathererEvent(activity, encounters, resources)
   resources:add(foundResource, 1)
   activity:add("Gatherer: I found a valuable resource, I found " .. foundResource .. ".")
   encounters:showEncounter('gatherer', 38)
+io.stderr:write("[ERROR] >>> Entering gathererEvent(activity=" .. tostring(activity) .. ",encounters=" .. tostring(encounters) .. ",resources=" .. tostring(resources) .. ")\n")
+io.stderr:write("[WARN] <<< Exiting gathererEvent(activity=" .. tostring(activity) .. ",encounters=" .. tostring(encounters) .. ",resources=" .. tostring(resources) .. ")\n")
 end
 
 function love.mousepressed(mx, my, button)
@@ -163,6 +181,9 @@ function love.mousepressed(mx, my, button)
   if button == 1
   and mx >= cCastle.coords.x and mx < cCastle.coords.x + cCastle.image:getWidth()
   and my >= cCastle.coords.y and my < height - cCastle.coords.y + cCastle.image:getHeight() then
+	io.stderr:write("[ERROR] >>> Entering mousepressed(mx=" .. tostring(mx) .. ",my=" .. tostring(my) .. ",button=" .. tostring(button) .. ")\n")
+	io.stderr:write("[DEBUG] mousepressed(mx=" .. tostring(mx) .. ",my=" .. tostring(my) .. ",button=" .. tostring(button) .. "): height → " .. tostring(height) .. "\n")
+	io.stderr:write("[DEBUG] mousepressed(mx=" .. tostring(mx) .. ",my=" .. tostring(my) .. ",button=" .. tostring(button) .. "): width → " .. tostring(width) .. "\n")
     result = viewer:spend(cCastle.cost)
     if result <= 0 then
       return false
@@ -188,6 +209,7 @@ function love.mousepressed(mx, my, button)
       love.audio.play(trackFour)
     end
 
+	io.stderr:write("[WARN] <<< Exiting mousepressed(mx=" .. tostring(mx) .. ",my=" .. tostring(my) .. ",button=" .. tostring(button) .. ")\n")
     return true
   end
 end
@@ -206,11 +228,16 @@ function love.load()
   trackFour = love.audio.newSource("track-4.mp3", "stream")
   trackFour:setLooping(true)
 
+io.stderr:write("[DEBUG] load(): coords → " .. tostring(coords) .. "\n")
+  io.stderr:write("[DEBUG] load(): value → " .. tostring(value) .. "\n")
+io.stderr:write("[DEBUG] load(): cMerchant → " .. tostring(cMerchant) .. "\n")
   font = love.graphics.newFont("Masuria.ttf", 20)
   monoFont = love.graphics.newFont("SFMonoBold.ttf", 10)
 
+io.stderr:write("[DEBUG] load(): cGatherer → " .. tostring(cGatherer) .. "\n")
   love.graphics.setFont(font)
 
+io.stderr:write("[DEBUG] load(): cBlacksmith → " .. tostring(cBlacksmith) .. "\n")
   viewer = Player({ gold = 3000 })
   activity = Activity({ items = {} })
   resources = Resources({ items = {} })
@@ -218,7 +245,13 @@ function love.load()
   world = World({ items = {} })
   encounters = Encounters()
 
+io.stderr:write("[DEBUG] load(): resources → " .. tostring(resources) .. "\n")
+io.stderr:write("[DEBUG] load(): inventory → " .. tostring(inventory) .. "\n")
+io.stderr:write("[DEBUG] load(): activity → " .. tostring(activity) .. "\n")
+io.stderr:write("[DEBUG] load(): viewer → " .. tostring(viewer) .. "\n")
+io.stderr:write("[DEBUG] load(): graphics → " .. tostring(graphics) .. "\n")
   cBlacksmith = {
+	io.stderr:write("[DEBUG] load(): encounters → " .. tostring(encounters) .. "\n")
     name = "Blacksmith's Guild",
     image = love.graphics.newImage("assets/upgrade-blacksmith.png"),
     coords = {
@@ -232,6 +265,8 @@ function love.load()
     rate = 960,
     value = 0
   }
+io.stderr:write("[DEBUG] load(): monoFont → " .. tostring(monoFont) .. "\n")
+io.stderr:write("[ERROR] >>> Entering load()\n")
 
   cGatherer = {
     name = "Gatherer's Guild",
@@ -247,6 +282,8 @@ function love.load()
     rate = 850,
     value = 0
   }
+io.stderr:write("[DEBUG] load(): trackOne → " .. tostring(trackOne) .. "\n")
+io.stderr:write("[DEBUG] load(): trackTwo → " .. tostring(trackTwo) .. "\n")
 
   cMerchant = {
     name = "Merchant's Guild",
@@ -262,6 +299,8 @@ function love.load()
     rate = 995,
     value = 0
   }
+io.stderr:write("[DEBUG] load(): trackThree → " .. tostring(trackThree) .. "\n")
+io.stderr:write("[DEBUG] load(): trackFour → " .. tostring(trackFour) .. "\n")
 
   cCastle = {
     name = "Labor Camp",
@@ -277,9 +316,11 @@ function love.load()
     rate = 999,
     value = 0
   }
+io.stderr:write("[DEBUG] load(): font → " .. tostring(font) .. "\n")
 end
 
 function love.update(dt)
+io.stderr:write("[ERROR] >>> Entering update(dt=" .. tostring(dt) .. ")\n")
   activity:update(dt)
   resources:update(dt)
   inventory:update(dt)
@@ -288,6 +329,7 @@ function love.update(dt)
   encounters:update(dt)
 
   elapsed = elapsed + dt + cCastle.level * 0.01
+io.stderr:write("[DEBUG] update(dt=" .. tostring(dt) .. "): elapsed → " .. tostring(elapsed) .. "\n")
   if elapsed < duration then
     return false
   end
@@ -298,6 +340,7 @@ function love.update(dt)
 
   eventValue = math.random(1, 1000)
 
+io.stderr:write("[DEBUG] update(dt=" .. tostring(dt) .. "): eventValue → " .. tostring(eventValue) .. "\n")
   if eventValue >= cMerchant.rate then
     return merchantEvent(activity, encounters, viewer)
   end
@@ -310,14 +353,18 @@ function love.update(dt)
     return gathererEvent(activity, encounters, resources)
   end
 
+io.stderr:write("[WARN] <<< Exiting update(dt=" .. tostring(dt) .. ")\n")
   return activity:add("Time has passed..")
 end
 
 function love.draw()
+io.stderr:write("[ERROR] >>> Entering draw()\n")
   love.graphics.setFont(font)
   height = love.graphics.getHeight()
   width = love.graphics.getWidth()
 
+io.stderr:write("[DEBUG] draw(): height → " .. tostring(height) .. "\n")
+io.stderr:write("[DEBUG] draw(): graphics → " .. tostring(graphics) .. "\n")
   encounters:draw()
   activity:draw()
   resources:draw()
@@ -331,4 +378,8 @@ function love.draw()
   drawCharacter(cBlacksmith)
   drawCharacter(cMerchant)
   drawCharacter(cCastle)
+io.stderr:write("[WARN] <<< Exiting draw()\n")
+io.stderr:write("[DEBUG] load(): cCastle → " .. tostring(cCastle) .. "\n")
+io.stderr:write("[DEBUG] load(): coords → " .. tostring(coords) .. "\n")
+io.stderr:write("[WARN] <<< Exiting load()\n")
 end
