@@ -43,6 +43,7 @@ function Projectiles2:new()
     self.mounted = {}
     self.animation = newAnimation(love.graphics.newImage("assets/weapon2.png"), 116.5, 115.5, 1)
     self.cooldown = { max = 1.7, elapsed = 0 }
+	io.stderr:write("[DEBUG] new(): self.cooldown → " .. tostring(self.cooldown) .. "\n")
 	io.stderr:write("[DEBUG] new(): self.mounted → " .. tostring(self.mounted) .. "\n")
     self.canShoot = true
 	io.stderr:write("[DEBUG] new(): self.canShoot → " .. tostring(self.canShoot) .. "\n")

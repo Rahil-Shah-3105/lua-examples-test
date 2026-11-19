@@ -556,6 +556,7 @@ function World:project(item, x,y,w,h, goalX, goalY, filter)
         end
       end
     end
+	io.stderr:write("[DEBUG] project(item=" .. tostring(item) .. ",x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. ",filter=" .. tostring(filter) .. "): len → " .. tostring(len) .. "\n")
 	io.stderr:write("[ERROR] >>> Entering project(item=" .. tostring(item) .. ",x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. ",filter=" .. tostring(filter) .. ")\n")
 	io.stderr:write("[DEBUG] project(item=" .. tostring(item) .. ",x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. ",filter=" .. tostring(filter) .. "): col.other → " .. tostring(col.other) .. "\n")
 	io.stderr:write("[DEBUG] project(item=" .. tostring(item) .. ",x=" .. tostring(x) .. ",y=" .. tostring(y) .. ",w=" .. tostring(w) .. ",h=" .. tostring(h) .. ",goalX=" .. tostring(goalX) .. ",goalY=" .. tostring(goalY) .. ",filter=" .. tostring(filter) .. "): col.item → " .. tostring(col.item) .. "\n")

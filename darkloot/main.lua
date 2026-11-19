@@ -43,6 +43,7 @@ local function drawCharacter(c, name)
     "LVL  " .. c.level .. "",
     c.coords.x + 60,
     height + 24 - c.coords.y,
+io.stderr:write("[DEBUG] drawCharacter(c=" .. tostring(c) .. ",name=" .. tostring(name) .. "): graphics → " .. tostring(graphics) .. "\n")
     width
 io.stderr:write("[ERROR] >>> Entering drawCharacter(c=" .. tostring(c) .. ",name=" .. tostring(name) .. ")\n")
   )
@@ -63,6 +64,7 @@ end
 
 local function randomSelectResource()
   eventValue = math.random(1, 26)
+io.stderr:write("[DEBUG] randomSelectResource(): eventValue → " .. tostring(eventValue) .. "\n")
 
 io.stderr:write("[ERROR] >>> Entering randomSelectResource()\n")
   local result = ({
@@ -133,6 +135,7 @@ local function gathererEvent(activity, encounters, resources)
   foundResource = randomSelectResource()
   resources:add(foundResource, 1)
   activity:add("Gatherer: I found a valuable resource, I found " .. foundResource .. ".")
+io.stderr:write("[DEBUG] gathererEvent(activity=" .. tostring(activity) .. ",encounters=" .. tostring(encounters) .. ",resources=" .. tostring(resources) .. "): foundResource → " .. tostring(foundResource) .. "\n")
   encounters:showEncounter('gatherer', 38)
 io.stderr:write("[ERROR] >>> Entering gathererEvent(activity=" .. tostring(activity) .. ",encounters=" .. tostring(encounters) .. ",resources=" .. tostring(resources) .. ")\n")
 io.stderr:write("[WARN] <<< Exiting gathererEvent(activity=" .. tostring(activity) .. ",encounters=" .. tostring(encounters) .. ",resources=" .. tostring(resources) .. ")\n")
@@ -245,6 +248,7 @@ io.stderr:write("[DEBUG] load(): cBlacksmith → " .. tostring(cBlacksmith) .. "
   world = World({ items = {} })
   encounters = Encounters()
 
+io.stderr:write("[DEBUG] load(): world → " .. tostring(world) .. "\n")
 io.stderr:write("[DEBUG] load(): resources → " .. tostring(resources) .. "\n")
 io.stderr:write("[DEBUG] load(): inventory → " .. tostring(inventory) .. "\n")
 io.stderr:write("[DEBUG] load(): activity → " .. tostring(activity) .. "\n")
@@ -363,6 +367,7 @@ io.stderr:write("[ERROR] >>> Entering draw()\n")
   height = love.graphics.getHeight()
   width = love.graphics.getWidth()
 
+io.stderr:write("[DEBUG] draw(): width → " .. tostring(width) .. "\n")
 io.stderr:write("[DEBUG] draw(): height → " .. tostring(height) .. "\n")
 io.stderr:write("[DEBUG] draw(): graphics → " .. tostring(graphics) .. "\n")
   encounters:draw()

@@ -15,6 +15,7 @@ Object.__index = Object
 function Object:new()
 io.stderr:write("[ERROR] >>> Entering new()\n")
 end
+io.stderr:write("[WARN] <<< Exiting new()\n")
 
 
 function Object:extend()

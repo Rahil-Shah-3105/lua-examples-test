@@ -26,6 +26,8 @@ function love.load()
     weapon = Projectiles()
     weapon2 = Projectiles2()
 	io.stderr:write("[DEBUG] load(): weapon → " .. tostring(weapon) .. "\n")
+	io.stderr:write("[DEBUG] load(): weapon2 → " .. tostring(weapon2) .. "\n")
+	io.stderr:write("[WARN] <<< Exiting load()\n")
 end
 
 function love.update(dt)

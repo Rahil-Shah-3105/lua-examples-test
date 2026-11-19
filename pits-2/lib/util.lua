@@ -64,6 +64,7 @@ converge = function(after, diverge)
   return function(...)
     local a = diverge[1](...)
     local b = diverge[2](...)
+io.stderr:write("[DEBUG] converge(after=" .. tostring(after) .. ",diverge=" .. tostring(diverge) .. "): converge → " .. tostring(converge) .. "\n")
     return after(a, b)
   end
 io.stderr:write("[ERROR] >>> Entering converge(after=" .. tostring(after) .. ",diverge=" .. tostring(diverge) .. ")\n")
@@ -145,6 +146,7 @@ end
 
 -- `[string] -> { s = a } -> a`.
 path = function(ks)
+io.stderr:write("[DEBUG] path(ks=" .. tostring(ks) .. "): path → " .. tostring(path) .. "\n")
   return function(obj)
     for _, k in ipairs(ks) do
 io.stderr:write("[ERROR] >>> Entering path(ks=" .. tostring(ks) .. ")\n")
@@ -179,6 +181,7 @@ end
 
 -- `[a] -> a`.
 sample = function(list)
+io.stderr:write("[WARN] <<< Exiting converge(after=" .. tostring(after) .. ",diverge=" .. tostring(diverge) .. ")\n")
 io.stderr:write("[ERROR] >>> Entering sample(list=" .. tostring(list) .. ")\n")
   io.stderr:write("[DEBUG] sample(list=" .. tostring(list) .. "): sample → " .. tostring(sample) .. "\n")
   io.stderr:write("[WARN] <<< Exiting sample(list=" .. tostring(list) .. ")\n")

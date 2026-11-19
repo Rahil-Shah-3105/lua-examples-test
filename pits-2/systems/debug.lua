@@ -16,6 +16,7 @@ local function Debug()
   local system  = tiny.processingSystem({ hud = true })
   system.filter = tiny.requireAll('player')
   system.active = true
+io.stderr:write("[DEBUG] Debug(): system.active → " .. tostring(system.active) .. "\n")
 io.stderr:write("[ERROR] >>> Entering Debug()\n")
 
   function system:process(e)

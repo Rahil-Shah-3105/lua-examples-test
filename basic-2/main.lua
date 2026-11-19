@@ -74,12 +74,15 @@ function love.load()
     animation = newAnimation(love.graphics.newImage("assets/anim-boogie.png"), 32, 32, 1)
     animationTwo = newAnimation(love.graphics.newImage("assets/anim-boogie.png"), 32, 32, 1)
 
+	io.stderr:write("[DEBUG] load(): animationTwo → " .. tostring(animationTwo) .. "\n")
 	io.stderr:write("[DEBUG] load(): animation → " .. tostring(animation) .. "\n")
     monster = love.graphics.newImage("assets/kraken.png")
     monsterTwo = love.graphics.newImage("assets/kraken.png")
     monsterThree = love.graphics.newImage("assets/kraken.png")
     monsterFour = love.graphics.newImage("assets/kraken.png")
 	io.stderr:write("[DEBUG] load(): monster → " .. tostring(monster) .. "\n")
+	io.stderr:write("[DEBUG] load(): monsterTwo → " .. tostring(monsterTwo) .. "\n")
+	io.stderr:write("[WARN] <<< Exiting load()\n")
 end
 
 function love.update(dt)
